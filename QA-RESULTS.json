@@ -1,0 +1,25 @@
+{
+  "version": "0.3.0",
+  "engineTests": {
+    "passed": 8,
+    "failed": 0
+  },
+  "workerdIntegration": {
+    "passed": true,
+    "checks": [
+      "automatic pairing without names or codes",
+      "simultaneous arrivals",
+      "abandoned queue removal",
+      "separate test and final-week queues",
+      "own roster validation",
+      "two-owner ready gate and shared countdown",
+      "shared movement and scores",
+      "server-controlled shots",
+      "pause and reconnect"
+    ]
+  },
+  "staticDOMReferences": "all literal element references resolve",
+  "browserQA": "Not run",
+  "realPhoneQA": "Not run",
+  "deployed": false
+}
