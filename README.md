@@ -1,4 +1,4 @@
-# Fantasy Dual v0.5 — ONE Cloudflare project
+# Fantasy Dual v0.6 — ONE Cloudflare project
 
 One deployment. One website address. Practice and live multiplayer are included.
 
@@ -28,7 +28,7 @@ npm run deploy
 
 ## Play — neutral arcade by default
 
-Practice: choose your team and two roster players, then press PLAY NOW · VS CPU. No weekly stats or injury checkbox is needed for neutral tests.
+Practice: choose your team and its featured pair, then press PLAY NOW · VS CPU. No weekly stats or injury checkbox is needed for neutral tests.
 
 Play a friend:
 
@@ -44,15 +44,27 @@ Neutral arcade uses listed height/weight and identical weekly ability baselines.
 
 Keep both live game windows visible. Disconnecting or switching away pauses the shared clock. Return to the original browser or use RESUME MY ROOM. Rooms expire after four hours. This prototype has no login or team ownership verification; anyone with a match link can claim its second place.
 
-## v0.5 — first bespoke animated athlete
+## v0.6 — Featured 18, smoother movement, dunks and fire
 
-Open `/characters.html` for the Character Lab. It renders the same Edwards pixel atlas used on court, with close-up/game-scale views, all poses, left/right facing, pause and cyan/coral kits. The lab also shows the measured scale differences for Daniels, Sabonis and Kessler using explicitly labelled placeholder rigs.
+The playable set is now the first two players in each supplied fantasy roster (18 in total). The complete 117-player catalogue remains retained as source data. Every featured athlete has individual transparent pixel artwork. The Character Lab at `/characters` covers all 18, both uniform palettes, eight run-cycle slots, shot gather/release, dunk, landing, defence and celebration. Flagg's generated atlas has fifteen distinct poses; its eight-slot run cycle reuses one stride pose. Asset mappings account for that layout explicitly.
 
-Anthony Edwards is the first athlete with bespoke pixel artwork, based on the approved grounded character concept. Twelve transparent poses supply ready/breathing, four sprint frames, shot gather/release, dunk, landing, defence and celebration. Sprite poses follow the live match state. Away kits use a client-side uniform palette shader that preserves skin colour. The first-sheet figures are stylised; this is not a claim of likeness clearance.
+Running uses eight-phase cycles, movement-distance timing, short pose transitions, a subtle continuous body bounce, and smoother acceleration/deceleration. Game art loads lazily for active players. The atlas cache is capped at eight resources so visiting the full lab does not retain every team's decoded textures.
 
-All 117 roster names still work. Athletes without individual sprite sheets use proportionate placeholder rigs. This is a staged art pass, not a completed 117-player art library. The renderer uses catalogue height and weight for visible scale/build; animation does not change the simulation, collision bounds or probabilities.
+### Dunk
 
-The v0.4 practice rendering fix, neutral-stat play, invitation links, readiness countdown and live room behaviour remain in place. No database migration is added.
+Within 108 court units of your attacking rim, press Shoot/Space once for a dunk. The action label becomes TAP DUNK. You do not need to charge a jump shot near the rim. The server moves the dunker towards the hoop during flight, resolves defensive pressure/blocks and awards two points if made. A dunk is not guaranteed.
+
+### Fire
+
+Three consecutive personal makes without a miss or an opposing basket ignite that player for 25 seconds. An opponent's made basket extinguishes earned fire. Fire grants +13 percentage points to normal shot probability (subject to the existing cap), +8 percentage points to dunk probability, 10% extra pace and faster stamina recovery. It adds visible flames, ball effects and a player timer. It is not invincibility.
+
+The selected weekly top guard, forward and centre start with 30 seconds of fire. That opening bonus survives an opponent's basket until its timer ends. Countdown, pauses and possession resets do not consume fire timers; only active play does.
+
+For neutral testing, DEMO PICKS are clearly labelled and configurable before creating a match. Defaults are Edwards (guard), Barnes (forward) and Jokic (centre); these are demonstration choices, not claims about current NBA/fantasy results. The host's choices apply to both owners and appear in the shared lobby. Choose Nobody to disable a slot.
+
+For an actual final-week duel, select and confirm the real positional winners; no winner is invented if none is supplied. Weekly leaderboard data is not fetched from ESPN. Position groups are this prototype's single primary G/F/C grouping in `public/featured.js`, rather than imported multi-position ESPN eligibility. Winner selection is currently manual, not an automated league-wide ranking service.
+
+The server chooses opening fire from the room configuration; a ready/input message cannot grant itself fire. Weekly stat payloads are whitelisted so they also cannot override identity, measurements or fire status. No new database namespace or migration is required.
 
 ## Controls
 

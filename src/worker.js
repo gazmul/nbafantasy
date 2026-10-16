@@ -1,3 +1,4 @@
+import {validateLeaders} from '../public/featured.js';
 import {createGame} from './engine.js';
 import {teamFor,buildTeam,cleanName,publicOwner} from './room-policy.js';
 
@@ -10,7 +11,7 @@ export default {
  async fetch(request,env){
   const url=new URL(request.url);
   if(!url.pathname.startsWith('/api/'))return secure(await env.ASSETS.fetch(request),url);
-  if(url.pathname==='/api/health')return json({ok:true,version:'0.5.0',realtime:'cloudflare-durable-objects',rosters:9,players:117});
+  if(url.pathname==='/api/health')return json({ok:true,version:'0.6.0',realtime:'cloudflare-durable-objects',rosters:9,players:117,featuredPlayers:18});
   if(request.headers.get('Origin')&&request.headers.get('Origin')!==url.origin)return json({error:'Use this game’s own website.'},403);
   const max=Number(request.headers.get('Content-Length')||0);if(max>16000)return json({error:'Request too large.'},413);
   try{
@@ -39,7 +40,7 @@ export class DuelRoom {
  }
  sockets(){return this.ctx.getWebSockets();}
  online(side){return this.sockets().some(s=>s.deserializeAttachment()?.side===side&&s.readyState===1);}
- view(){return {code:this.room.code,mode:this.room.mode,weekEnding:this.room.weekEnding,createdAt:this.room.createdAt,expiresAt:this.room.createdAt+TTL,owners:this.room.owners.map((o,s)=>publicOwner(o,this.online(s))),phase:this.engine?.state.phase||'lobby'};}
+ view(){return {code:this.room.code,mode:this.room.mode,leaders:this.room.leaders||{},leadersSource:this.room.leadersSource||"unset",weekEnding:this.room.weekEnding,createdAt:this.room.createdAt,expiresAt:this.room.createdAt+TTL,owners:this.room.owners.map((o,s)=>publicOwner(o,this.online(s))),phase:this.engine?.state.phase||'lobby'};}
  pauseReason(){if(!this.engine||this.engine.state.phase==='ended')return '';for(let side=0;side<2;side++){const sockets=this.sockets().filter(s=>s.deserializeAttachment()?.side===side&&s.readyState===1);if(!sockets.length)return 'An owner disconnected. Waiting for them to return.';const a=sockets[0].deserializeAttachment();if(!a.active)return 'Both owners must return to the court.';if(Date.now()-a.lastSeen>4500)return 'Waiting for the other owner’s connection…';}return '';}
  async save(){if(this.room){if(this.engine)this.room.snapshot=this.engine.snapshot();await this.ctx.storage.put('room',this.room);}}
  send(ws,x){try{ws.send(JSON.stringify(x));}catch(e){}}
@@ -53,7 +54,8 @@ export class DuelRoom {
     if(this.room)return json({error:'Room already exists.'},409);
     const b=await request.json();b.owner=teamFor(b.teamId)?.name;if(!teamFor(b.teamId)||!cleanName(b.owner))return json({error:'Enter your owner name and choose a team.'},400);
     const mode=b.mode==='week'?'week':'test';if(mode==='week'&&!/^\d{4}-\d{2}-\d{2}$/.test(b.weekEnding||''))return json({error:'Choose the week ending date.'},400);
-    const auth=token();this.room={code:b.code,mode,weekEnding:mode==='week'?b.weekEnding:null,createdAt:Date.now(),owners:[{name:cleanName(b.owner),teamId:b.teamId,tokenHash:await digest(auth),ready:false},null]};await this.save();await this.ctx.storage.setAlarm(Date.now()+TTL);return json({token:auth,side:0,room:this.view()});
+    const leaders=validateLeaders(b.leaders,mode);if(mode==='week'&&Object.values(leaders).some(Boolean)&&b.leadersConfirmed!==true)return json({error:'Confirm the actual weekly positional leaders, or leave them unset.'},400);
+    const auth=token();this.room={code:b.code,mode,leaders,leadersSource:mode==='test'?'demo':'owner-confirmed',weekEnding:mode==='week'?b.weekEnding:null,createdAt:Date.now(),owners:[{name:cleanName(b.owner),teamId:b.teamId,tokenHash:await digest(auth),ready:false},null]};await this.save();await this.ctx.storage.setAlarm(Date.now()+TTL);return json({token:auth,side:0,room:this.view()});
    }
    if(!this.room)return json({error:'Duel not found. Enter the live court again.'},404);
    if(Date.now()>this.room.createdAt+TTL)return json({error:'This test room has expired. Create a new duel.'},410);
@@ -93,7 +95,7 @@ export class DuelRoom {
    if(m.type==='ping'){this.send(ws,{type:'pong',at:m.at,serverAt:now});return;}
    if(m.type==='active'){a.active=m.active===true;ws.serializeAttachment(a);this.engine?.clear(a.side);this.broadcast({type:'pause',reason:this.pauseReason()});return;}
    if(m.type==='ready'&&!this.engine){
-    const owner=this.room.owners[a.side];owner.team=buildTeam(owner.teamId,m.submission,this.room.mode);owner.submission=m.submission;owner.ready=true;
+    const owner=this.room.owners[a.side];owner.team=buildTeam(owner.teamId,m.submission,this.room.mode,this.room.leaders||{});owner.submission=m.submission;owner.ready=true;
     if(this.room.owners.every(o=>o?.ready)&&[0,1].every(s=>this.online(s))){this.engine=createGame(this.room.owners.map(o=>o.team));this.room.snapshot=this.engine.snapshot();this.broadcast({type:'start',state:this.engine.snapshot(),room:this.view()});this.ensureLoop();}
     await this.save();this.update();return;
    }

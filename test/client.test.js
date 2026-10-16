@@ -8,7 +8,7 @@ test('practice renders past countdown, responds to movement/shots and restarts; 
  const html=await readFile(new URL('../public/index.html',import.meta.url),'utf8');
  const league=JSON.parse(await readFile(new URL('../public/league.json',import.meta.url),'utf8'));
  let size={width:900,height:530},frames=[],calls=0;const listeners={},requests=[],sent=[];
- const context=new Proxy({createLinearGradient:()=>({addColorStop(){}})}, {get:(o,k)=>k in o?o[k]:(...args)=>{calls++;},set:(o,k,v)=>(o[k]=v,true)});
+ const context=new Proxy({createLinearGradient:()=>({addColorStop(){}}),createRadialGradient:()=>({addColorStop(){}})}, {get:(o,k)=>k in o?o[k]:(...args)=>{calls++;},set:(o,k,v)=>(o[k]=v,true)});
  class Element{
   constructor(id){this.id=id;this.hidden=/hidden/.test(html.match(new RegExp('<[^>]*id="'+id+'"[^>]*>'))?.[0]||'');this.value=id==='modeInput'?'test':'';this.style={};this.checked=false;this.disabled=false;this.textContent='';}
   set innerHTML(v){this.html=v;const options=[...v.matchAll(/<option value="([^"]+)"/g)].map(m=>m[1]);if(options.length){this.options=options.map(value=>({value,disabled:false}));this.value=options[0];}}

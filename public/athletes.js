@@ -1,23 +1,17 @@
+import {ATLAS_DATA} from './art-manifest.js?v=060';
 // Presentation only. No sprites, poses or cosmetic choices change match physics.
 const profiles=new Map();
 export function configureAthletes(league){for(const t of league.teams)for(const p of t.players)profiles.set(p.name,{height:p.heightCm,weight:p.weightKg});}
 export function athleteMetrics(p){const physical=profiles.get(p.name)||{height:193.04*(p.r?.scale||1),weight:102.05828325};const height=physical.height/193.04;return {height:96*height,build:Math.max(.78,Math.min(1.25,Math.sqrt(physical.weight/102.05828325)/height))};}
-export const EDWARDS_FRAMES=[
- {box:[93,38,241,296],anchor:[225,332]}, {box:[474,40,226,294],anchor:[586,332]},
- {box:[829,29,274,302],anchor:[966,329]}, {box:[1257,11,173,322],anchor:[1343,331]},
- {box:[82,363,285,292],anchor:[226,653]}, {box:[458,359,261,299],anchor:[588,656]},
- {box:[880,389,162,285],anchor:[961,672]}, {box:[1257,343,151,332],anchor:[1332,673]},
- {box:[94,666,211,274],anchor:[213,985]}, {box:[477,788,240,225],anchor:[595,1011]},
- {box:[802,761,322,251],anchor:[963,1010]}, {box:[1270,684,170,329],anchor:[1355,1011]}
-];
+export const EDWARDS_FRAMES=ATLAS_DATA['Anthony Edwards']?.frames||[];
 export function animationPose(p,m,now){
  const shot=m.ball?.shot,carrier=m.ball?.owner>=0?m.ps[m.ball.owner]:null,speed=Math.hypot(p.vx||0,p.vy||0);
- if(m.phase==='reset'&&p.team===1-m.nextSide)return {name:'celebrate',frame:11};
- if(shot?.shooter===p.id)return {name:shot.dunk?'dunk':'release',frame:shot.dunk?8:7};
- if(p.hold>0)return {name:'shoot',frame:p.hold<.3?6:7};
- if(p.jump>0)return {name:'defend',frame:10};
- if(speed>20)return {name:'run',frame:2+(Math.floor(now/(speed>185?70:105))+p.id)%4};
- if(carrier&&carrier.team!==p.team&&m.phase==='playing')return {name:'defend',frame:10};
+ if(m.phase==='reset'&&p.team===1-m.nextSide)return {name:'celebrate',frame:15};
+ if(shot?.shooter===p.id)return {name:shot.dunk?'dunk':'release',frame:shot.dunk?12:11};
+ if(p.hold>0)return {name:'shoot',frame:p.hold<.3?10:11};
+ if(p.jump>0)return {name:'defend',frame:14};
+ if(speed>20)return {name:'run',frame:2+Math.floor(((p.distance??now*speed/1000)/96)*8)%8};
+ if(carrier&&carrier.team!==p.team&&m.phase==='playing')return {name:'defend',frame:14};
  return {name:'idle',frame:Math.floor(now/430)%2};
 }
 const skins={
@@ -45,26 +39,38 @@ function drawRig(ctx,p,pose,now){
  ctx.fillStyle=skin.dark;ctx.fillRect(-3,-83,7,9);poly(ctx,[[-6,-93],[-3,-97],[4,-96],[7,-91],[6,-83],[2,-79],[-4,-82],[-7,-88]],skin.skin);poly(ctx,[[-5,-93],[2,-95],[5,-90],[4,-84],[1,-82],[-3,-84]],skin.light);
  poly(ctx,[[-7,-91],[-7,-95],[-3,-98],[5,-97],[8,-93],[6,-90],[2,-93],[-3,-92]],skin.hair);ctx.fillStyle='#211b23';ctx.fillRect(3,-89,2,2);if(skin.beard){ctx.fillStyle=skin.hair;ctx.fillRect(1,-83,5,3);}
 }
+const resources=new Map();
+function loadAtlas(name,onLoad){
+ if(resources.has(name)){const existing=resources.get(name);resources.delete(name);resources.set(name,existing);return existing;}
+ const spec=ATLAS_DATA[name];if(!spec||typeof Image==='undefined')return null;
+ const resource={spec,image:null,orange:null,failed:false};resources.set(name,resource);while(resources.size>8)resources.delete(resources.keys().next().value);
+ const image=new Image();image.onload=()=>{resource.image=image;try{
+  const canvas=document.createElement('canvas');canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;const c=canvas.getContext('2d');c.drawImage(image,0,0);const pixels=c.getImageData(0,0,canvas.width,canvas.height),d=pixels.data;
+  for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2];if(d[i+3]>0&&g>r*1.25&&b>r*1.2&&Math.abs(g-b)<100){const light=Math.max(g,b);d[i]=Math.min(255,light*1.12);d[i+1]=Math.round(light*.44);d[i+2]=Math.round(light*.35);}}
+  c.putImageData(pixels,0,0);resource.orange=canvas;
+ }catch{}onLoad();};image.onerror=()=>{resource.failed=true;onLoad();};image.src=spec.src;return resource;
+}
 export function makeAthleteRenderer({onLoad=()=>{}}={}){
- let atlas=null,orange=null,failed=false;const facing=new Map(),previousPose=new Map();
- if(typeof Image!=='undefined'){
-  const image=new Image();image.onload=()=>{atlas=image;try{
-   // Palette replacement is a runtime team-uniform shader; skin stays untouched.
-   const canvas=document.createElement('canvas');canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;const c=canvas.getContext('2d');c.drawImage(image,0,0);const pixels=c.getImageData(0,0,canvas.width,canvas.height),d=pixels.data;
-   for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2];if(d[i+3]>0&&g>r*1.25&&b>r*1.2&&Math.abs(g-b)<100){const light=Math.max(g,b);d[i]=Math.min(255,light*1.12);d[i+1]=Math.round(light*.44);d[i+2]=Math.round(light*.35);}}
-   c.putImageData(pixels,0,0);orange=canvas;
-  }catch{/* Cyan art and the orange team ring remain usable if palette preparation fails. */}onLoad();};image.onerror=()=>{failed=true;onLoad();};image.src='/art/edwards-v1.png';
- }
+ const facing=new Map(),poses=new Map();
+ function statusFor(name){const r=resources.get(name);return r?.image?'ready':r?.failed?'fallback':'loading';}
  return {
-  get status(){return atlas?'ready':failed?'fallback':'loading';},
+  get status(){return [...resources.values()].some(r=>r.image)?'ready':[...resources.values()].some(r=>r.failed)?'fallback':'loading';},
+  statusFor,preload(names){for(const name of names)loadAtlas(name,onLoad);},
   draw(ctx,p,m,now,{facingX,forcePose}={}){
-   const key=p.name+':'+p.id;if(Math.abs(facingX??p.vx)>15)facing.set(key,(facingX??p.vx)<0?-1:1);const direction=facing.get(key)||(p.team?-1:1),metrics=athleteMetrics(p),pose=forcePose||animationPose(p,m,now),old=previousPose.get(key);
-   if(old?.jumped&&!(p.jump>0)&&pose.name!=='celebrate')previousPose.set(key,{jumped:false,landUntil:now+120});else if(!old?.landUntil||old.landUntil<now)previousPose.set(key,{jumped:p.jump>0});
-   const landing=previousPose.get(key)?.landUntil>now&&pose.name==='idle',frame=landing?9:pose.frame;
-   ctx.save();ctx.imageSmoothingEnabled=false;const jump=Math.sin(Math.min(1,(p.jump||0)/.65)*Math.PI)*27;ctx.translate(p.x,p.y-jump);ctx.scale(direction*metrics.build,1);
-   if(p.name==='Anthony Edwards'&&atlas){const f=EDWARDS_FRAMES[frame],scale=metrics.height/292,[sx,sy,w,h]=f.box,[ax,ay]=f.anchor;ctx.drawImage(p.team&&orange?orange:atlas,sx,sy,w,h,Math.round((sx-ax)*scale),Math.round((sy-ay)*scale),Math.round(w*scale),Math.round(h*scale));}
-   else{const scale=metrics.height/96;ctx.scale(scale,scale);drawRig(ctx,p,pose,now);}
-   ctx.restore();return {pose:landing?'land':pose.name,frame,height:metrics.height,facing:direction};
+   const resource=loadAtlas(p.name,onLoad),key=p.name+':'+p.id;
+   if(Math.abs(facingX??p.vx)>15)facing.set(key,(facingX??p.vx)<0?-1:1);
+   const direction=facing.get(key)||(p.team?-1:1),metrics=athleteMetrics(p),pose=forcePose||animationPose(p,m,now),old=poses.get(key);
+   if(!old||old.name!==pose.name)poses.set(key,{name:pose.name,at:now,from:old?.frame??pose.frame,frame:pose.frame});
+   const history=poses.get(key);history.frame=pose.frame;
+   const jump=Math.sin(Math.min(1,(p.jump||0)/.65)*Math.PI)*27,bob=pose.name==='run'?-Math.abs(Math.sin((p.distance??now*.16)/96*Math.PI*2))*1.5:pose.name==='idle'?Math.sin(now/350)*.45:0;
+   ctx.save();ctx.imageSmoothingEnabled=false;ctx.translate(p.x,p.y-jump+bob);ctx.scale(direction*metrics.build,1);
+   if(resource?.image){
+    const image=p.team&&resource.orange?resource.orange:resource.image,scale=metrics.height/resource.spec.bodyPixels;
+    const paint=index=>{const f=resource.spec.frames[index],[sx,sy,w,h]=f.box,[ax,ay]=f.anchor;ctx.drawImage(image,sx,sy,w,h,(sx-ax)*scale,(sy-ay)*scale,w*scale,h*scale);};
+    const mix=Math.min(1,(now-history.at)/75),alpha=ctx.globalAlpha??1;
+    if(mix<1&&history.from!==pose.frame){ctx.globalAlpha=alpha*(1-mix);paint(history.from);ctx.globalAlpha=alpha*mix;paint(pose.frame);ctx.globalAlpha=alpha;}else paint(pose.frame);
+   }else{const scale=metrics.height/96;ctx.scale(scale,scale);drawRig(ctx,p,pose,now);}
+   ctx.restore();return {pose:pose.name,frame:pose.frame,height:metrics.height,facing:direction};
   }
  };
 }

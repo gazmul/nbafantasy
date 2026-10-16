@@ -1,5 +1,5 @@
 {
-  "version": "0.5.0",
+  "version": "0.6.0",
   "engineTests": {
     "passed": 8,
     "failed": 0
@@ -50,14 +50,36 @@
       "no match-state mutations"
     ]
   },
-  "totalNodeTests": 13,
+  "totalNodeTests": 22,
   "nativeCanvasQA": {
     "passed": true,
-    "method": "real @napi-rs/canvas renderer, actual decoded PNG and runtime palette preparation",
-    "views": [
-      "Edwards at close-up alongside proportionate placeholders",
-      "full landscape court with Edwards sprint frame"
-    ],
+    "method": "actual decoded PNG atlases rendered by actual athlete/court modules on native canvas",
+    "athletes": 18,
+    "paletteSwap": true,
+    "onFireEffects": true,
+    "nearRimDunkPrompt": true,
     "browser": false
+  },
+  "featuredArt": {
+    "athletes": 18,
+    "mappedPoseSlots": 288,
+    "runCycleSlots": 8,
+    "distinctPoseException": "Flagg reuses one stride pose in its eight-slot cycle",
+    "allFilesAndFrameBoundsValidated": true
+  },
+  "gameplayChecks": [
+    "near-rim tap-to-dunk",
+    "timed jump shots outside dunk radius",
+    "three personal makes ignite",
+    "opening weekly fire persists through opponent basket",
+    "earned fire extinguishes on opponent score",
+    "pause/countdown preserve fire timers",
+    "fire affects shooting speed and stamina",
+    "stat payload cannot inject fire or measurements"
+  ],
+  "weeklyLeaders": {
+    "neutralMode": "explicit configurable demo picks",
+    "actualWeek": "manual owner-confirmed winners, unset by default",
+    "automaticESPNRanking": false
   }
 }
