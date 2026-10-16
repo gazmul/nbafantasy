@@ -1,4 +1,4 @@
-import {ATLAS_DATA} from './art-manifest.js?v=060';
+import {ATLAS_DATA} from './art-manifest.js?v=061';
 // Presentation only. No sprites, poses or cosmetic choices change match physics.
 const profiles=new Map();
 export function configureAthletes(league){for(const t of league.teams)for(const p of t.players)profiles.set(p.name,{height:p.heightCm,weight:p.weightKg});}

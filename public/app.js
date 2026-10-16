@@ -1,7 +1,7 @@
-import {createGame,clamp,emptyInput} from './engine.js?v=060';
-import {FEATURED,DEMO_LEADERS,ROLE_LABELS} from './featured.js?v=060';
-import {configureAthletes} from './athletes.js?v=060';
-import {makeCourt} from './court.js?v=060';
+import {createGame,clamp,emptyInput} from './engine.js?v=061';
+import {FEATURED,DEMO_LEADERS,ROLE_LABELS} from './featured.js?v=061';
+import {configureAthletes} from './athletes.js?v=061';
+import {makeCourt} from './court.js?v=061';
 
 const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const league=await fetch('/league.json').then(r=>{if(!r.ok)throw Error('The league roster could not load. Reload this page.');return r.json();});

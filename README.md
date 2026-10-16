@@ -84,3 +84,7 @@ The realtime test checks automatic pairing without names/codes, simultaneous arr
 ## Data
 
 Nine supplied fantasy teams, 117 players. Height/weight and individual source links are in public/league.json, verified in the prior build against official NBA profiles on 15 October 2026. Original character art; no NBA/ESPN logos or copied likenesses. Weekly scores are entered by owners and do not update ESPN automatically.
+
+### v0.6.1 animation fix
+
+Sprite metadata follows complete silhouettes instead of cutting poses at uniform tile edges. Corrected shorter pose sheets and added court side clearance. `npm test` includes decoded-PNG running crop checks. To rebuild metadata from unchanged source PNGs: `python scripts/build-atlas.py` (Pillow, NumPy, SciPy required for this optional art tooling).

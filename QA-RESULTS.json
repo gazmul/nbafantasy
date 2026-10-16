@@ -1,9 +1,5 @@
 {
-  "version": "0.6.0",
-  "engineTests": {
-    "passed": 8,
-    "failed": 0
-  },
+  "version": "0.6.1",
   "workerdIntegration": {
     "passed": true,
     "checks": [
@@ -50,7 +46,7 @@
       "no match-state mutations"
     ]
   },
-  "totalNodeTests": 22,
+  "totalNodeTests": 24,
   "nativeCanvasQA": {
     "passed": true,
     "method": "actual decoded PNG atlases rendered by actual athlete/court modules on native canvas",
@@ -81,5 +77,17 @@
     "neutralMode": "explicit configurable demo picks",
     "actualWeek": "manual owner-confirmed winners, unset by default",
     "automaticESPNRanking": false
+  },
+  "spriteClipping": {
+    "passed": true,
+    "checks": [
+      "144 running-frame crops checked against decoded PNG silhouettes",
+      "Complete pose bounds replace fixed tile crops",
+      "Shorter Edwards and Flagg pose sheets mapped correctly",
+      "Court side padding preserves wide strides",
+      "Both facing directions rendered with native canvas"
+    ],
+    "browserQA": "Not run",
+    "realPhoneQA": "Not run"
   }
 }

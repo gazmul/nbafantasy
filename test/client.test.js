@@ -4,7 +4,8 @@ import {readFile} from 'node:fs/promises';
 
 // Execute the real client and renderer with DOM/canvas adapters. This is a
 // runtime regression test, not a substitute for browser or real-phone QA.
-test('practice renders past countdown, responds to movement/shots and restarts; invitations target the exact room',async()=>{
+test('practice renders past countdown, responds to movement/shots and restarts; invitations target the exact room',async(t)=>{
+ const random=Math.random;Math.random=()=>.5;t.after(()=>{Math.random=random;});
  const html=await readFile(new URL('../public/index.html',import.meta.url),'utf8');
  const league=JSON.parse(await readFile(new URL('../public/league.json',import.meta.url),'utf8'));
  let size={width:900,height:530},frames=[],calls=0;const listeners={},requests=[],sent=[];
