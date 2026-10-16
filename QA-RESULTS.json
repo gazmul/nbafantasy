@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0",
   "engineTests": {
     "passed": 8,
     "failed": 0
@@ -15,11 +15,27 @@
       "two-owner ready gate and shared countdown",
       "shared movement and scores",
       "server-controlled shots",
-      "pause and reconnect"
+      "pause and reconnect",
+      "direct room invitation and safe preview",
+      "closed invitation rejection"
     ]
   },
-  "staticDOMReferences": "all literal element references resolve",
+  "staticDOMReferences": "all references, unique IDs and HTML nesting passed",
   "browserQA": "Not run",
   "realPhoneQA": "Not run",
-  "deployed": false
+  "deployed": false,
+  "clientRuntimeRegression": {
+    "passed": true,
+    "covers": [
+      "real client + canvas modules execute without missing-helper exception",
+      "practice countdown advances into gameplay",
+      "movement and shot meter",
+      "pause/resume and portrait practice restart",
+      "private-room create uses neutral stats",
+      "direct invitation routes to exact room",
+      "invited owner defaults to a different team",
+      "neutral ready requires no stat entry or eligibility checkbox"
+    ],
+    "method": "Node DOM/canvas adapters; not a real browser"
+  }
 }

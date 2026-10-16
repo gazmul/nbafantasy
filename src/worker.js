@@ -10,7 +10,7 @@ export default {
  async fetch(request,env){
   const url=new URL(request.url);
   if(!url.pathname.startsWith('/api/'))return secure(await env.ASSETS.fetch(request),url);
-  if(url.pathname==='/api/health')return json({ok:true,version:'0.3.0',realtime:'cloudflare-durable-objects',rosters:9,players:117});
+  if(url.pathname==='/api/health')return json({ok:true,version:'0.4.0',realtime:'cloudflare-durable-objects',rosters:9,players:117});
   if(request.headers.get('Origin')&&request.headers.get('Origin')!==url.origin)return json({error:'Use this game’s own website.'},403);
   const max=Number(request.headers.get('Content-Length')||0);if(max>16000)return json({error:'Request too large.'},413);
   try{
@@ -19,14 +19,14 @@ export default {
     const code=crypto.randomUUID().replaceAll('-','').slice(0,20).toUpperCase();
     return await env.DUELS.getByName(code).fetch(new Request(url.origin+'/create',{method:'POST',body:JSON.stringify({...await request.json(),code})}));
    }
-   const m=url.pathname.match(/^\/api\/rooms\/([A-Fa-f0-9]{20})(?:\/(join|socket|leave))?$/);
+   const m=url.pathname.match(/^\/api\/rooms\/([A-Fa-f0-9]{20})(?:\/(join|socket|leave|preview))?$/);
    if(!m)return json({error:'Unknown game route.'},404);
    const next=new URL(request.url);next.pathname='/'+(m[2]||'view');
    return await env.DUELS.getByName(m[1].toUpperCase()).fetch(new Request(next,request));
   }catch(e){return json({error:'The room request could not be completed. Please try again.'},400);}
  }
 };
-function secure(response,url){const r=new Response(response.body,response),socketOrigin=(url.protocol==='https:'?'wss://':'ws://')+url.host;r.headers.set('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' "+socketOrigin+"; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");r.headers.set('X-Content-Type-Options','nosniff');r.headers.set('Referrer-Policy','no-referrer');r.headers.set('Permissions-Policy','camera=(), microphone=(), geolocation=()');return r;}
+function secure(response,url){const r=new Response(response.body,response),socketOrigin=(url.protocol==='https:'?'wss://':'ws://')+url.host;r.headers.set('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' "+socketOrigin+"; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'");r.headers.set('Cache-Control','no-cache');r.headers.set('X-Content-Type-Options','nosniff');r.headers.set('Referrer-Policy','no-referrer');r.headers.set('Permissions-Policy','camera=(), microphone=(), geolocation=()');return r;}
 
 export class DuelRoom {
  constructor(ctx,env){
@@ -57,10 +57,12 @@ export class DuelRoom {
    }
    if(!this.room)return json({error:'Duel not found. Enter the live court again.'},404);
    if(Date.now()>this.room.createdAt+TTL)return json({error:'This test room has expired. Create a new duel.'},410);
+   if(path==='/preview')return json({teamId:this.room.owners[0].teamId,teamName:teamFor(this.room.owners[0].teamId).name,mode:this.room.mode,canJoin:!this.room.abandoned&&!this.engine&&!this.room.owners[1]});
    if(path==='/availability')return json({available:!this.engine&&!this.room.abandoned&&!this.room.owners[1]&&(this.online(0)||Date.now()-this.room.createdAt<20000),teamId:this.room.owners[0].teamId});
    if(path==='/join'&&request.method==='POST'){
+    if(this.room.abandoned)return json({error:'That match was closed. Ask your rival for a new match link.'},410);
     if(this.room.owners[1])return json({error:'This duel already has two owners. Use Resume on the device you joined with.'},409);
-    const b=await request.json();b.owner=teamFor(b.teamId)?.name;if(!teamFor(b.teamId)||b.teamId===this.room.owners[0].teamId||!cleanName(b.owner))return json({error:'Enter your name and select a different fantasy team.'},400);
+    const b=await request.json();b.owner=teamFor(b.teamId)?.name;if(!teamFor(b.teamId)||b.teamId===this.room.owners[0].teamId||!cleanName(b.owner))return json({error:'Select a different fantasy team from your rival.'},400);
     const auth=token(),hash=await digest(auth);if(this.room.owners[1])return json({error:'Another owner just joined this duel.'},409);
     this.room.owners[1]={name:cleanName(b.owner),teamId:b.teamId,tokenHash:hash,ready:false};await this.save();this.update();return json({token:auth,side:1,room:this.view()});
    }

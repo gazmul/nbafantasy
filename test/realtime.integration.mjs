@@ -13,6 +13,11 @@ const selected=i=>catalog.teams[i].players.slice(0,2).map(p=>p.id);
 try{
  await mf.ready;
  const health=await request('/api/health');assert.equal(health.data.players,117);checks.push('Worker boots in the actual Cloudflare workerd runtime');
+ const inviteHost=await request('/api/rooms',{teamId:'team-6',mode:'test'});assert.equal(inviteHost.status,200);
+ const inviteCode=inviteHost.data.room.code;const preview=await request(`/api/rooms/${inviteCode}/preview`);assert.equal(preview.data.teamId,'team-6');assert.equal(preview.data.canJoin,true);assert(!JSON.stringify(preview.data).includes('token'));
+ const inviteGuest=await request(`/api/rooms/${inviteCode}/join`,{teamId:'team-7'});assert.equal(inviteGuest.status,200);assert.equal(inviteGuest.data.room.code,inviteCode);assert.equal((await request(`/api/rooms/${inviteCode}/preview`)).data.canJoin,false);checks.push('Direct invitation joins the exact room; public preview exposes no session credentials');
+ await request(`/api/rooms/${inviteCode}/leave`,{},inviteHost.data.token);await request(`/api/rooms/${inviteCode}/leave`,{},inviteGuest.data.token);
+ assert.equal((await request(`/api/rooms/${inviteCode}/join`,{teamId:'team-8'})).status,410);checks.push('Closed invitations are rejected clearly');
  const created=await request('/api/play',{teamId:'team-3',mode:'test'});assert.equal(created.status,200);const code=created.data.room.code,h=created.data.token;assert.equal(h.length,64);
  assert.equal((await request(`/api/rooms/${code}`)).status,401);checks.push('Room sign-in is required to view match data');
  const same=await request('/api/play',{teamId:'team-3',mode:'test'});assert.equal(same.status,409);

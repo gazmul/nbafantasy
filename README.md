@@ -1,4 +1,4 @@
-# Fantasy Dual v0.3 — ONE Cloudflare project
+# Fantasy Dual v0.4 — ONE Cloudflare project
 
 One deployment. One website address. Practice and live multiplayer are included.
 
@@ -26,17 +26,29 @@ npx wrangler login
 npm run deploy
 ```
 
-## Play
+## Play — neutral arcade by default
 
-Practice: choose your team, two roster players and an AI opponent, then start a warm-up.
+Practice: choose your team and two roster players, then press PLAY NOW · VS CPU. No weekly stats or injury checkbox is needed for neutral tests.
 
-Live: both owners open the same website, select different fantasy teams, and press ENTER LIVE COURT. The first waits; the next owner in the same mode joins automatically. Each selects two players and confirms injury eligibility. Both press READY UP. A shared 3–2–1 countdown starts the same server-controlled two-minute match on both devices.
+Play a friend:
 
-For your first trial, choose Gameplay test on both devices. This uses verified height and weight with neutral weekly abilities. Final-week duel instead requires the same week-ending date and manually entered final fantasy score and weekly player totals. There is no automatic stats or injury feed.
+1. Select your fantasy team and press CREATE MATCH & INVITE.
+2. Copy the match link shown in the lobby and send it to your rival (or paste it in an incognito window).
+3. Your rival opens that exact link. The host's team is excluded so both owners choose different teams.
+4. Two players per owner are preselected. Change them if desired, then both press READY · LET'S PLAY.
+5. A shared 3–2–1 countdown starts the same two-minute server-controlled duel.
 
-Keep both game tabs visible. Disconnecting or switching away pauses the shared clock; return to the original browser or use RESUME MY ROOM. Queue entries from owners who leave are skipped. Rooms expire after four hours. With more than two arrivals, owners pair in arrival order within their match mode/week; scheduled league pairings are not implemented.
+FIND ONLINE RIVAL remains available for automatic pairing: both owners must choose that button and use the same match mode/week. Creating two private matches independently will not pair them; share the invite for the court you want to use.
 
-This is deliberately account-free: anyone with the website address can select a team. Team selection is not proof of ownership. Auction prices do not affect gameplay.
+Neutral arcade uses listed height/weight and identical weekly ability baselines. All roster players are selectable for the trial. Injury eligibility is not verified. Real weekly figures remain optional inside the collapsed advanced section and require confirmed injury eligibility.
+
+Keep both live game windows visible. Disconnecting or switching away pauses the shared clock. Return to the original browser or use RESUME MY ROOM. Rooms expire after four hours. This prototype has no login or team ownership verification; anyone with a match link can claim its second place.
+
+## v0.4 fixes and arcade presentation
+
+The court renderer now imports its maths helper, fixing the first-frame exception that froze practice and live rendering. New client runtime regression coverage executes the real UI and canvas code with adapters through countdown, movement, shooting, pause/resume, portrait restart and invitation join. This supplements the server tests; it is not real-browser or phone QA.
+
+Warm parquet, saturated blue/coral/gold, outlined arcade typography, larger character heads, running and shooting poses, boost trails and scoring confetti use original code-native artwork.
 
 ## Controls
 
@@ -44,14 +56,14 @@ Laptop: WASD/arrows move; hold/release Space to shoot; E passes/switches; Shift 
 
 ## Checks
 
-`npm test` runs the eight engine/catalogue checks. For live runtime validation:
+`npm test` runs the engine/catalogue and client runtime checks. For live runtime validation:
 
 ```sh
 npx wrangler deploy --dry-run --outdir .build
 node test/realtime.integration.mjs
 ```
 
-The realtime test checks automatic pairing without names/codes, simultaneous arrivals, queue abandonment, match-mode separation, readiness/countdown, shared input/state, timed shooting, disconnect pause and reconnect. Browser visual QA and real-phone touch testing remain outstanding. This package has not been deployed to your account.
+The realtime test checks automatic pairing without names/codes, simultaneous arrivals, queue abandonment, match-mode separation, readiness/countdown, shared input/state, timed shooting, disconnect pause and reconnect. Browser visual QA and real-phone touch testing remain outstanding. Cloudflare Git builds deploy pushes to main when enabled.
 
 ## Data
 
