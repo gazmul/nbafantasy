@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.0",
   "engineTests": {
     "passed": 8,
     "failed": 0
@@ -37,5 +37,27 @@
       "neutral ready requires no stat entry or eligibility checkbox"
     ],
     "method": "Node DOM/canvas adapters; not a real browser"
+  },
+  "athleteTests": {
+    "passed": 4,
+    "covers": [
+      "exact catalogue height ratios",
+      "game-state pose selection",
+      "all twelve atlas frame bounds inside actual RGBA asset",
+      "loaded sprite drawing and facing",
+      "team palette preserves skin",
+      "artwork failure fallback",
+      "no match-state mutations"
+    ]
+  },
+  "totalNodeTests": 13,
+  "nativeCanvasQA": {
+    "passed": true,
+    "method": "real @napi-rs/canvas renderer, actual decoded PNG and runtime palette preparation",
+    "views": [
+      "Edwards at close-up alongside proportionate placeholders",
+      "full landscape court with Edwards sprint frame"
+    ],
+    "browser": false
   }
 }

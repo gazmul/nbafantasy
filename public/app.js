@@ -1,8 +1,10 @@
-import {createGame,clamp,emptyInput} from './engine.js?v=040';
-import {makeCourt} from './court.js?v=040';
+import {createGame,clamp,emptyInput} from './engine.js?v=050';
+import {configureAthletes} from './athletes.js?v=050';
+import {makeCourt} from './court.js?v=050';
 
 const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const league=await fetch('/league.json').then(r=>{if(!r.ok)throw Error('The league roster could not load. Reload this page.');return r.json();});
+configureAthletes(league);
 let session=null,room=null,ws=null,snapshot=null,practice=null,practiceTeams=null,selected=[],statDraft={},ready=false,gameVisible=false,pausedReason='',localExit=false,away=false,eventSeq=0,events=[],control=emptyInput(),lastSent=0,lastSnapshotAt=0,lastMessageAt=0,lastPing=0,latency=0,retryTimer=null,manualLeave=false,toastTimer=null,soundOn=false,audio=null,joyPointer=null,shotPointer=null,boostPointer=null,lastDraw=null;
 const storeKey='fantasy-dual-room-v02';
 const invited=(new URLSearchParams(location.search).get('duel')||'').toUpperCase();

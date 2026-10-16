@@ -1,4 +1,4 @@
-# Fantasy Dual v0.4 — ONE Cloudflare project
+# Fantasy Dual v0.5 — ONE Cloudflare project
 
 One deployment. One website address. Practice and live multiplayer are included.
 
@@ -44,11 +44,15 @@ Neutral arcade uses listed height/weight and identical weekly ability baselines.
 
 Keep both live game windows visible. Disconnecting or switching away pauses the shared clock. Return to the original browser or use RESUME MY ROOM. Rooms expire after four hours. This prototype has no login or team ownership verification; anyone with a match link can claim its second place.
 
-## v0.4 fixes and arcade presentation
+## v0.5 — first bespoke animated athlete
 
-The court renderer now imports its maths helper, fixing the first-frame exception that froze practice and live rendering. New client runtime regression coverage executes the real UI and canvas code with adapters through countdown, movement, shooting, pause/resume, portrait restart and invitation join. This supplements the server tests; it is not real-browser or phone QA.
+Open `/characters.html` for the Character Lab. It renders the same Edwards pixel atlas used on court, with close-up/game-scale views, all poses, left/right facing, pause and cyan/coral kits. The lab also shows the measured scale differences for Daniels, Sabonis and Kessler using explicitly labelled placeholder rigs.
 
-Warm parquet, saturated blue/coral/gold, outlined arcade typography, larger character heads, running and shooting poses, boost trails and scoring confetti use original code-native artwork.
+Anthony Edwards is the first athlete with bespoke pixel artwork, based on the approved grounded character concept. Twelve transparent poses supply ready/breathing, four sprint frames, shot gather/release, dunk, landing, defence and celebration. Sprite poses follow the live match state. Away kits use a client-side uniform palette shader that preserves skin colour. The first-sheet figures are stylised; this is not a claim of likeness clearance.
+
+All 117 roster names still work. Athletes without individual sprite sheets use proportionate placeholder rigs. This is a staged art pass, not a completed 117-player art library. The renderer uses catalogue height and weight for visible scale/build; animation does not change the simulation, collision bounds or probabilities.
+
+The v0.4 practice rendering fix, neutral-stat play, invitation links, readiness countdown and live room behaviour remain in place. No database migration is added.
 
 ## Controls
 
