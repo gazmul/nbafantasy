@@ -217,9 +217,12 @@
   },
   "availablePlayers": 36,
   "remainingPlayers": 81,
-  "lastVerifiedDeploymentBeforeThisCommit": {
-    "version": "0.7.0",
-    "players": 18
-  },
-  "deploymentStatus": "Local release validated; reconcile GitHub checks and live health after automatic deployment."
+  "deploymentStatus": "Verified live: GitHub checks pass, all18 new sprite hashes match, new pairs start and move together.",
+  "deployedPlayers": 36,
+  "lastVerifiedDeployment": {
+    "version": "0.8.0",
+    "players": 36,
+    "releaseCommit": "8956e447db5aa3b388b27c45bfd5c837ad9ecdbf",
+    "verifiedAt": "2026-10-17T13:00:40.237803+00:00"
+  }
 }

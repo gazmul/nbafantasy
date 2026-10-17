@@ -19,7 +19,7 @@
   "staticDOMReferences": "all references, unique IDs and HTML nesting passed",
   "browserQA": "Not run",
   "realPhoneQA": "Not run",
-  "deployed": false,
+  "deployed": true,
   "clientRuntimeRegression": {
     "passed": true,
     "covers": [
@@ -129,5 +129,21 @@
     "workerdChecks": 21,
     "browserQA": "Not run",
     "realPhoneQA": "Not run"
+  },
+  "productionSmoke": {
+    "verifiedAt": "2026-10-17T13:00:40.237803+00:00",
+    "releaseCommit": "8956e447db5aa3b388b27c45bfd5c837ad9ecdbf",
+    "version": "0.8.0",
+    "availablePlayers": 36,
+    "liveAssetsHashVerified": 23,
+    "newSpriteHashesVerified": 18,
+    "twoOwnerNewPairNames": [
+      "Dyson Daniels",
+      "Michael Porter Jr.",
+      "James Harden",
+      "Alperen Sengun"
+    ],
+    "sharedCountdown": true,
+    "newPlayerMovementShared": true
   }
 }
