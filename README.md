@@ -98,3 +98,9 @@ Midnight Arena is the active visual direction: navy/graphite surfaces, warm mapl
 Every team now has four individually illustrated players available. Choose exactly two for practice or a live duel; this remains 2v2. The next two players are catalogue-order entries3 and4, preserving the existing fantasy teams and measurements. New artwork has sixteen complete poses and supports both Midnight Arena kits.
 
 Roster expansion continuity and recovery are in `docs/ROSTER-PRODUCTION.md` and `docs/roster-progress.json`. The owner's scheduled overnight task adds balanced batches until all117 players are reviewed, available and verified live, then disables itself.
+
+### v0.8.1 · Perspective court and raised baskets
+
+The court now uses a low sideline perspective in landscape and an end-court perspective in portrait. Glass backboards, elevated rims, nets and shot clocks sit above the floor, with players scaled and layered by court depth. Shots finish at the elevated rim; dunk lift follows each athlete's actual sprite reach. No crowd is drawn. World positions, control directions, match physics, roster selection and the existing network protocol remain authoritative and unchanged.
+
+`node scripts/render-court-qa.mjs` renders portrait/landscape views and left/right dunks with the real canvas modules, also asserting that rendering never mutates match state. This does not replace browser or real-phone QA.

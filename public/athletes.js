@@ -1,9 +1,10 @@
-import {THEME,recolourKitPixel} from './themes.js?v=080';
-import {ATLAS_DATA} from './art-manifest.js?v=080';
+import {THEME,recolourKitPixel} from './themes.js?v=081';
+import {ATLAS_DATA} from './art-manifest.js?v=081';
 // Presentation only. No sprites, poses or cosmetic choices change match physics.
 const profiles=new Map();
 export function configureAthletes(league){for(const t of league.teams)for(const p of t.players)profiles.set(p.name,{height:p.heightCm,weight:p.weightKg});}
 export function athleteMetrics(p){const physical=profiles.get(p.name)||{height:193.04*(p.r?.scale||1),weight:102.05828325};const height=physical.height/193.04;return {height:96*height,build:Math.max(.78,Math.min(1.25,Math.sqrt(physical.weight/102.05828325)/height))};}
+export function athleteReach(p,frame=12){const spec=ATLAS_DATA[p.name],f=spec?.frames[frame];return f?athleteMetrics(p).height/spec.bodyPixels*(f.anchor[1]-f.box[1]):athleteMetrics(p).height*1.08;}
 export const EDWARDS_FRAMES=ATLAS_DATA['Anthony Edwards']?.frames||[];
 export function animationPose(p,m,now){
  const shot=m.ball?.shot,carrier=m.ball?.owner>=0?m.ps[m.ball.owner]:null,speed=Math.hypot(p.vx||0,p.vy||0);
