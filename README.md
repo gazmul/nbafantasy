@@ -92,3 +92,9 @@ Sprite metadata follows complete silhouettes instead of cutting poses at uniform
 ### v0.7.0 · Midnight Arena
 
 Midnight Arena is the active visual direction: navy/graphite surfaces, warm maple court, cobalt and ivory kits, and amber fire effects. Shared presentation colours live in `public/themes.js`. Concrete Club, Coastal Heat and Original Arcade remain saved there for future themed games; there is no theme selector yet. Both sprite kits and roster previews use the same pigment conversion while preserving skin/hair colours and source shading. Gameplay, sprite frame bounds, team rosters and room protocol are unchanged.
+
+### v0.8.0 · Four-player rosters
+
+Every team now has four individually illustrated players available. Choose exactly two for practice or a live duel; this remains 2v2. The next two players are catalogue-order entries3 and4, preserving the existing fantasy teams and measurements. New artwork has sixteen complete poses and supports both Midnight Arena kits.
+
+Roster expansion continuity and recovery are in `docs/ROSTER-PRODUCTION.md` and `docs/roster-progress.json`. The owner's scheduled overnight task adds balanced batches until all117 players are reviewed, available and verified live, then disables itself.

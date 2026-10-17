@@ -1,13 +1,14 @@
-import {sideLabel} from './themes.js?v=070';
-import {createGame,clamp,emptyInput} from './engine.js?v=070';
-import {FEATURED,DEMO_LEADERS,ROLE_LABELS} from './featured.js?v=070';
-import {configureAthletes,makeAthleteRenderer} from './athletes.js?v=070';
-import {makeCourt} from './court.js?v=070';
+import {sideLabel} from './themes.js?v=080';
+import {createGame,clamp,emptyInput} from './engine.js?v=080';
+import {FEATURED,DEMO_LEADERS,ROLE_LABELS} from './featured.js?v=080';
+import {configureAthletes,makeAthleteRenderer} from './athletes.js?v=080';
+import {makeCourt} from './court.js?v=080';
 
 const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const league=await fetch('/league.json').then(r=>{if(!r.ok)throw Error('The league roster could not load. Reload this page.');return r.json();});
-// Keep the full catalogue for provenance; the playable art pass uses two per team.
-for(const t of league.teams)t.players=t.players.slice(0,2);
+// The catalogue remains the source of truth. Only reviewed artwork is selectable.
+const availableIds=new Set(FEATURED.map(p=>p.id));
+for(const t of league.teams)t.players=t.players.filter(p=>availableIds.has(p.id));
 configureAthletes(league);
 for(const role of ['G','F','C']){const el=$('leader'+role);el.innerHTML='<option value="">Nobody</option>'+FEATURED.filter(p=>p.role===role).map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');el.value=DEMO_LEADERS[role];}
 function chosenLeaders(){return Object.fromEntries(['G','F','C'].map(r=>[r,$('leader'+r).value||null]));}

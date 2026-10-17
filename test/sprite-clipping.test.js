@@ -12,12 +12,12 @@ function pixels(png){
  for(let y=0;y<h;y++){const f=raw[y*(stride+1)];assert(f<=4);for(let x=0;x<stride;x++){const i=y*stride+x,a=x>=4?out[i-4]:0,b=y?out[i-stride]:0,c=y&&x>=4?out[i-stride-4]:0;out[i]=(raw[y*(stride+1)+1+x]+[0,a,b,Math.floor((a+b)/2),paeth(a,b,c)][f])&255;}}
  return {w,out};
 }
-test('every running silhouette has transparent side margins before either facing is drawn',async()=>{
+test('every pose silhouette has transparent side margins before either facing is drawn',async()=>{
  for(const [name,spec] of Object.entries(ATLAS_DATA)){
   const {w,out}=pixels(await readFile(new URL('../public'+spec.src,import.meta.url)));
-  for(let f=2;f<10;f++){
+  for(let f=0;f<16;f++){
    const [x,y,bw,bh]=spec.frames[f].box;
-   // A clipped stride has solid pixels right on the source rectangle edge;
+   // A clipped pose has solid pixels right on the source rectangle edge;
    // mirroring exchanges these edges, so both must retain their padding.
    const visited=new Uint8Array(bw*bh);let largest={size:0,edge:0};
    for(let seed=0;seed<visited.length;seed++){

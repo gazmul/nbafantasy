@@ -32,15 +32,15 @@ test('practice renders past countdown, responds to movement/shots and restarts; 
  await import('../public/app.js?client-regression');
  const start=performance.now();let tick=0;
  function run(n){for(let i=0;i<n;i++){const callbacks=frames;frames=[];assert.equal(callbacks.length,1,'Exactly one animation loop');callbacks[0](start+(++tick)*1000/60);}}
- $('practiceBtn').onclick();run(245);assert.equal($('game').hidden,false);assert.equal($('arenaOverlay').hidden,true);assert.notEqual($('clock').textContent,'2:00');assert(calls>1000,'Court actually draws');
+ $('practiceBtn').onclick();run(245);assert.equal($('game').hidden,false);assert.equal($('arenaOverlay').hidden,true);assert.notEqual($('clock').textContent,'2:00');assert.equal($('practicePlayer1').options.length,4,'All four available players appear in practice');assert(calls>1000,'Court actually draws');
  listeners.keydown({key:'d',preventDefault(){}});run(40);listeners.keyup({key:'d'});
  listeners.keydown({key:' ',repeat:false,preventDefault(){}});run(45);assert.equal($('shotMeter').hidden,false);listeners.keyup({key:' '});run(12);assert.equal($('shotMeter').hidden,true);
  $('exitBtn').onclick();run(5);assert.equal($('overlayTitle').textContent,'PAUSED');$('resumeBtn').onclick();run(5);assert.equal($('arenaOverlay').hidden,true);
- $('exitBtn').onclick();$('leaveBtn').onclick();size={width:360,height:640};$('practiceBtn').onclick();run(250);assert.equal($('arenaOverlay').hidden,true);assert.equal($('game').hidden,false);
+ $('exitBtn').onclick();$('leaveBtn').onclick();size={width:360,height:640};$('practicePlayer1').value=league.teams[2].players[2].id;$('practicePlayer2').value=league.teams[2].players[3].id;$('practiceBtn').onclick();run(250);assert.equal($('arenaOverlay').hidden,true);assert.equal($('game').hidden,false);assert($('activeName').textContent.startsWith('Dyson Daniels'),'Practice actually starts with the newly selected pair');
  $('exitBtn').onclick();$('leaveBtn').onclick();
  await $('loginForm').onsubmit({preventDefault(){}});await new Promise(r=>setImmediate(r));
  assert.equal(requests.find(x=>x.path==='/api/rooms')?.opts.method,'POST');assert.equal(JSON.parse(requests.find(x=>x.path==='/api/rooms').opts.body).mode,'test');
- assert.equal($('inviteLink').value,'https://test.local/?duel='+code);assert.equal($('eligibilityLabel').hidden,true);assert.equal($('selectionCount').textContent,'2 / 2');$('readyBtn').onclick();assert(sent.some(m=>m.type==='ready'&&m.submission.selected.length===2&&m.submission.eligible));
+ assert.equal($('inviteLink').value,'https://test.local/?duel='+code);assert.equal($('eligibilityLabel').hidden,true);assert.equal($('selectionCount').textContent,'2 / 2');assert.equal(($('roster').innerHTML.match(/class="player-card /g)||[]).length,4,'All four available players appear in the live roster');$('readyBtn').onclick();assert(sent.some(m=>m.type==='ready'&&m.submission.selected.length===2&&m.submission.eligible));
  // A separate client module, representing an incognito owner, follows its invite.
  location.search='?duel='+code;frames=[];await import('../public/app.js?invited-client-regression');await new Promise(r=>setImmediate(r));assert.notEqual($('teamInput').value,'team-3');
  assert.equal($('createBtn').textContent,'JOIN INVITED MATCH ↗');assert.equal($('findRivalBtn').hidden,true);await $('loginForm').onsubmit({preventDefault(){}});await new Promise(r=>setImmediate(r));

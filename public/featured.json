@@ -22,6 +22,28 @@
     "role": "F"
   },
   {
+    "teamId": "team-1",
+    "teamName": "Jamal Hands",
+    "id": "201935",
+    "name": "James Harden",
+    "heightCm": 193.04,
+    "weightKg": 99.7903214,
+    "heightDisplay": "6'4\"",
+    "weightLb": 220,
+    "role": "G"
+  },
+  {
+    "teamId": "team-1",
+    "teamName": "Jamal Hands",
+    "id": "1630578",
+    "name": "Alperen Sengun",
+    "heightCm": 210.82,
+    "weightKg": 122.92353227,
+    "heightDisplay": "6'11\"",
+    "weightLb": 271,
+    "role": "C"
+  },
+  {
     "teamId": "team-2",
     "teamName": "Bed, Bath And Biyombo",
     "id": "1629029",
@@ -42,6 +64,28 @@
     "heightDisplay": "6'8\"",
     "weightLb": 229,
     "role": "F"
+  },
+  {
+    "teamId": "team-2",
+    "teamName": "Bed, Bath And Biyombo",
+    "id": "1630163",
+    "name": "LaMelo Ball",
+    "heightCm": 200.66,
+    "weightKg": 81.6466266,
+    "heightDisplay": "6'7\"",
+    "weightLb": 180,
+    "role": "G"
+  },
+  {
+    "teamId": "team-2",
+    "teamName": "Bed, Bath And Biyombo",
+    "id": "1629638",
+    "name": "Nickeil Alexander-Walker",
+    "heightCm": 195.58,
+    "weightKg": 92.98643585,
+    "heightDisplay": "6'5\"",
+    "weightLb": 205,
+    "role": "G"
   },
   {
     "teamId": "team-3",
@@ -66,6 +110,28 @@
     "role": "C"
   },
   {
+    "teamId": "team-3",
+    "teamName": "Mulholland Drive",
+    "id": "1630700",
+    "name": "Dyson Daniels",
+    "heightCm": 200.66,
+    "weightKg": 90.26488163,
+    "heightDisplay": "6'7\"",
+    "weightLb": 199,
+    "role": "G"
+  },
+  {
+    "teamId": "team-3",
+    "teamName": "Mulholland Drive",
+    "id": "1629008",
+    "name": "Michael Porter Jr.",
+    "heightCm": 208.28,
+    "weightKg": 105.23342984,
+    "heightDisplay": "6'10\"",
+    "weightLb": 232,
+    "role": "F"
+  },
+  {
     "teamId": "team-4",
     "teamName": "Pile of Chet",
     "id": "1628983",
@@ -86,6 +152,28 @@
     "heightDisplay": "6'2\"",
     "weightLb": 200,
     "role": "G"
+  },
+  {
+    "teamId": "team-4",
+    "teamName": "Pile of Chet",
+    "id": "1628389",
+    "name": "Bam Adebayo",
+    "heightCm": 205.74,
+    "weightKg": 117.9340162,
+    "heightDisplay": "6'9\"",
+    "weightLb": 260,
+    "role": "C"
+  },
+  {
+    "teamId": "team-4",
+    "teamName": "Pile of Chet",
+    "id": "1628969",
+    "name": "Mikal Bridges",
+    "heightCm": 198.12,
+    "weightKg": 94.80080533,
+    "heightDisplay": "6'6\"",
+    "weightLb": 209,
+    "role": "F"
   },
   {
     "teamId": "team-5",
@@ -110,6 +198,28 @@
     "role": "F"
   },
   {
+    "teamId": "team-5",
+    "teamName": "Giddey's Kiddies",
+    "id": "1628401",
+    "name": "Derrick White",
+    "heightCm": 193.04,
+    "weightKg": 90.718474,
+    "heightDisplay": "6'4\"",
+    "weightLb": 200,
+    "role": "G"
+  },
+  {
+    "teamId": "team-5",
+    "teamName": "Giddey's Kiddies",
+    "id": "1630596",
+    "name": "Evan Mobley",
+    "heightCm": 210.82,
+    "weightKg": 104.3262451,
+    "heightDisplay": "6'11\"",
+    "weightLb": 230,
+    "role": "C"
+  },
+  {
     "teamId": "team-6",
     "teamName": "The Bandwagoners",
     "id": "1628378",
@@ -132,6 +242,28 @@
     "role": "F"
   },
   {
+    "teamId": "team-6",
+    "teamName": "The Bandwagoners",
+    "id": "202695",
+    "name": "Kawhi Leonard",
+    "heightCm": 200.66,
+    "weightKg": 102.05828325,
+    "heightDisplay": "6'7\"",
+    "weightLb": 225,
+    "role": "F"
+  },
+  {
+    "teamId": "team-6",
+    "teamName": "The Bandwagoners",
+    "id": "1627750",
+    "name": "Jamal Murray",
+    "heightCm": 193.04,
+    "weightKg": 97.52235955,
+    "heightDisplay": "6'4\"",
+    "weightLb": 215,
+    "role": "G"
+  },
+  {
     "teamId": "team-7",
     "teamName": "Night Night",
     "id": "1630169",
@@ -151,6 +283,28 @@
     "weightKg": 114.75886961,
     "heightDisplay": "6'10\"",
     "weightLb": 253,
+    "role": "C"
+  },
+  {
+    "teamId": "team-7",
+    "teamName": "Night Night",
+    "id": "1626157",
+    "name": "Karl-Anthony Towns",
+    "heightCm": 213.36,
+    "weightKg": 112.49090776,
+    "heightDisplay": "7'0\"",
+    "weightLb": 248,
+    "role": "C"
+  },
+  {
+    "teamId": "team-7",
+    "teamName": "Night Night",
+    "id": "1631105",
+    "name": "Jalen Duren",
+    "heightCm": 208.28,
+    "weightKg": 113.3980925,
+    "heightDisplay": "6'10\"",
+    "weightLb": 250,
     "role": "C"
   },
   {
@@ -176,6 +330,28 @@
     "role": "F"
   },
   {
+    "teamId": "team-8",
+    "teamName": "TURNnBURN",
+    "id": "203507",
+    "name": "Giannis Antetokounmpo",
+    "heightCm": 210.82,
+    "weightKg": 113.3980925,
+    "heightDisplay": "6'11\"",
+    "weightLb": 250,
+    "role": "F"
+  },
+  {
+    "teamId": "team-8",
+    "teamName": "TURNnBURN",
+    "id": "1629675",
+    "name": "Naz Reid",
+    "heightCm": 205.74,
+    "weightKg": 119.74838568,
+    "heightDisplay": "6'9\"",
+    "weightLb": 264,
+    "role": "C"
+  },
+  {
     "teamId": "team-9",
     "teamName": "Daniel Stern",
     "id": "1627783",
@@ -195,6 +371,28 @@
     "weightKg": 106.14061458,
     "heightDisplay": "6'11\"",
     "weightLb": 234,
+    "role": "F"
+  },
+  {
+    "teamId": "team-9",
+    "teamName": "Daniel Stern",
+    "id": "201939",
+    "name": "Stephen Curry",
+    "heightCm": 187.96,
+    "weightKg": 92.98643585,
+    "heightDisplay": "6'2\"",
+    "weightLb": 205,
+    "role": "G"
+  },
+  {
+    "teamId": "team-9",
+    "teamName": "Daniel Stern",
+    "id": "1631114",
+    "name": "Jalen Williams",
+    "heightCm": 195.58,
+    "weightKg": 95.70799007,
+    "heightDisplay": "6'5\"",
+    "weightLb": 211,
     "role": "F"
   }
 ]

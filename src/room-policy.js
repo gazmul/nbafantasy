@@ -9,7 +9,7 @@ export function buildTeam(teamId,submission,mode,leaders={}){
  const source=teamFor(teamId);if(!source)throw Error('Choose a team from this league.');
  if(!submission||submission.eligible!==true)throw Error('Confirm that both selected roster players are eligible.');
  if(!Array.isArray(submission.selected)||submission.selected.length!==2||new Set(submission.selected).size!==2)throw Error('Select two different players from your roster.');
- if(!submission.selected.every(id=>featuredFor(teamId).some(p=>p.id===id)))throw Error('This build features the two leading players per team.');
+ if(!submission.selected.every(id=>featuredFor(teamId).some(p=>p.id===id)))throw Error('Choose from the available players on your own fantasy roster.');
  const stats={};for(const p of source.players){if(submission.selected.includes(p.id)){
   const x=mode==='test'?{gp:0,pts:0,reb:0,ast:0,three:0,stl:0,blk:0}:submission.stats?.[p.id];
   if(!x)throw Error('Enter this week’s statistics for both selected players.');

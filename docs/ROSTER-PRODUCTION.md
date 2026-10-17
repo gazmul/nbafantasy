@@ -1,0 +1,38 @@
+# Fantasy Dual roster production
+
+Owner direction: add two more players per fantasy team now, then continue overnight until all nine 13-player rosters have individual reviewed artwork and are selectable. Games remain 2v2: choose exactly two from each available roster. Preserve Midnight Arena and the saved Concrete Club, Coastal Heat and Original Arcade palettes.
+
+Canonical repository: `gazmul/nbafantasy`, branch `main`. The existing GitHub → Cloudflare integration publishes to https://nbafantasy.gwmulholland.workers.dev. No second site, no manual ZIP, no login system, no replacement infrastructure.
+
+## Current source of truth
+
+- `public/league.json` and `src/league.json`: same full nine-team / 117-player catalogue. Use the existing roster order and existing height/weight provenance; do not transfer players or refresh the league from a different season.
+- `public/featured.json` and matching `FEATURED` in `public/featured.js`: available players, their team, measurements and broad G/F/C fire-leader role. The historical FEATURED name now means available art roster, not an arbitrary permanent limit.
+- `public/art/player-<catalogue-id>-v2.png`: original transparent individual spritesheet. Source cyan pigment is recoloured by the renderer into cobalt and ivory; preserve natural skin, hair and source shading.
+- `public/art-manifest.js`: actual full silhouette bounds and feet anchors for each logical pose, not blind tile crops.
+- `docs/roster-progress.json`: reviewed count, remaining queue, production lock and latest validation. Reconcile release-candidate records with the current GitHub checks and live health before planning a batch; the source FEATURED IDs plus verified served art are authoritative. Do not mark planned assets as complete.
+
+PNG recovery after scratch loss: the live Worker serves each deployed atlas at `/art/player-<id>-v2.png`; download through `curl -fLsS` and compare its Git blob hash with the committed tree. GitHub fetch tools return UTF-8 only, so do not treat them as binary download tools.
+
+## Batch execution
+
+1. Fetch fresh GitHub main, checkpoint files and this guide. Do not rely on transient scratch or previous conversations. Check a lock plus recent commits to avoid concurrent publishers. An unexpired active lock means skip. Locks expire after two hours; investigate before recovering a stale lock. Always publish with an expected-SHA lease; inspect any changed head before retrying.
+2. Work overnight America/Chicago, approximately 22:00–06:00; checkpoint and stop before 06:00. The automation is a bounded resumption, not continuous guaranteed execution. The owner's explicit agent request permits bounded parallel art agents with separate player-file ownership.
+3. Pick the next two not-yet-available players per team in catalogue order (one each in the final batch). Keep the per-team expansion balanced. Do not enable unreviewed players with another athlete's sprite or a generic fallback and call the art complete.
+4. Read the imagegen skill and use built-in imagegen for each new raster sheet. Inspect an existing individual sheet as a style reference. Original detailed 2D pixel art, adult natural proportions and recognisable general features, original FD kit without NBA branding. Exactly sixteen separated full-body poses in a transparent 4×4 grid: idle 0/1, running 2–9, gather 10, release 11, dunk 12, land 13, defend 14, celebrate 15. All face right. Ample cell margins, complete hands/shoes, no ball, shadows, labels or backgrounds. Prefer standalone identity-specific text prompts after inspecting the style reference: attaching the whole old sheet reproduced its clipped celebration feet and overly similar identities in this batch. Inspect each generated image and its alpha/layout. Do not print base64 tool data. Copy generated PNG unchanged into the repo; use imagegen to repair art, not Python image edits.
+5. Extend `scripts/expand-roster.py` with reviewed role groups as needed and run with the next per-team limit. Do not invent actual weekly winners; neutral demo fire leaders stay explicitly demo-labelled. `public/app.js` filters selectable players by FEATURED; backend `featuredFor` enforces the same allow-list. Preserve exactly-two selection, default first pair, and all existing 2v2 physics.
+6. Run or adapt `scripts/build-atlas.py` to analyse full connected silhouettes. Never assume an equal tile contains the whole athlete. Validate pose meaning, mappings, anchors, dimensions and both-facing crop margins. Existing Edwards/Flagg 15-pose mappings and Durant touching-pose seam are documented in that script; preserve existing reviewed bounds unless an actual issue requires a change. New sheets may have different dimensions; scale analysis thresholds and inspect results.
+7. Update broad expected roster counts and health/version details, not just a cosmetic number. Extend meaningful selection/security regression coverage: new pair in practice and authoritative live room, rejected third/fifth/unavailable/other-team IDs as appropriate, correct dimensions. Keep src/engine.js and public/engine.js byte-identical.
+8. Run `npm test`, `NODE_OPTIONS=--require=./test/runtime-compat.cjs npm run build:check`, `npm run test:realtime`. Run `node scripts/render-roster-qa.mjs` when native canvas is available, render the full court in portrait/landscape, and inspect new athletes with both kit palettes/facing directions. Do not claim browser/real-phone QA without those tools/devices.
+9. Publish only a complete passing batch via GitHub tree/commit/update_ref or an authorised Git checkout. Wait for both `game` and `Workers Builds: nbafantasy` success. Verify live `/api/health` version/count and served changed asset bytes. Preserve stable deployment on failure. Save recoverable source and a precise blocker without claiming the live update.
+10. Record actual deployed counts and remaining IDs. At 117/117 selectable, individually illustrated and verified, disable the recurring automation and report completion. Do not stop merely because every player has catalogue data.
+
+## Binary uploads
+
+In this workspace, `exec_command` output is truncated in the middle above roughly 1MiB even when max_output_tokens is larger. Read each PNG in 196608-byte chunks, base64-encode each chunk separately (262144 characters; chunk byte size divisible by3), and concatenate those strings inside functions orchestration before passing to github.create_blob with encoding base64. For every chunk assert exact expected encoded length and base64-only characters. Compute expected Git blob SHA1 locally as sha1(b"blob "+decimal_byte_length+b"\0"+file_bytes), then require the returned blob SHA to match before adding it to create_tree. Do not print content; print only byte counts/SHAs. Use a bounded number of independent uploads in parallel, then one tree/commit/ref update. scripts/art-blob-ledger.json records already uploaded final image blobs for retries; compare local hashes before reuse.
+
+GitHub `create_blob` accepts base64; avoid logging binary/base64 to conversation. When possible use an authenticated git transport. If connector arguments must include image contents, stage an actual blob through the documented GitHub tools, reuse its returned SHA in `create_tree`, and upload each changed PNG once. Never replace images with paths or uncommitted local files.
+
+## Scheduling
+
+Recurring task: Complete Fantasy Dual rosters. It resumes in overnight windows and stops itself after completion. If required app access, image generation, deployment or remaining execution time blocks a run, report the real blocker and retain the last passing version.

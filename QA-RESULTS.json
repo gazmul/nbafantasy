@@ -1,5 +1,5 @@
 {
-  "version": "0.7.0",
+  "version": "0.8.0",
   "workerdIntegration": {
     "passed": true,
     "checks": [
@@ -46,7 +46,7 @@
       "no match-state mutations"
     ]
   },
-  "totalNodeTests": 24,
+  "totalNodeTests": 26,
   "nativeCanvasQA": {
     "passed": true,
     "method": "actual decoded PNG atlases rendered by actual athlete/court modules on native canvas",
@@ -106,6 +106,27 @@
       "Actual workerd two-owner integration passes",
       "Wrangler deployment dry run passes"
     ],
+    "browserQA": "Not run",
+    "realPhoneQA": "Not run"
+  },
+  "expandedRosters": {
+    "availablePlayers": 36,
+    "playersPerTeam": 4,
+    "newAthletes": 18,
+    "totalCatalogue": 117,
+    "all54PairsValidated": true,
+    "all576PoseCropsValidated": true,
+    "newSpritesAtOuterImageEdges": 0,
+    "nativeCanvasViews": {
+      "athletes": 36,
+      "kits": 2,
+      "directions": 2,
+      "newPairsFullCourt": [
+        "portrait",
+        "landscape"
+      ]
+    },
+    "workerdChecks": 21,
     "browserQA": "Not run",
     "realPhoneQA": "Not run"
   }

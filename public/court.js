@@ -1,6 +1,6 @@
-import {THEME,sideLabel} from './themes.js?v=070';
-import {clamp,DUNK_RADIUS} from './engine.js?v=070';
-import {makeAthleteRenderer,athleteMetrics} from './athletes.js?v=070';
+import {THEME,sideLabel} from './themes.js?v=080';
+import {clamp,DUNK_RADIUS} from './engine.js?v=080';
+import {makeAthleteRenderer,athleteMetrics} from './athletes.js?v=080';
 // Original Fantasy Dual canvas art, retained from the working laptop prototype.
 export function makeCourt({$,ownerSide,getPaused}){
 let pausedReason='';const athletes=makeAthleteRenderer();

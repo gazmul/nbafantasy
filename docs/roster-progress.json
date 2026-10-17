@@ -1,0 +1,225 @@
+{
+  "schema": 1,
+  "target": 117,
+  "availablePerTeam": 4,
+  "release": "0.8.0",
+  "automationTitle": "Complete Fantasy Dual rosters",
+  "automationId": "6ad36d09bf608191a67f7e209e75e1fd",
+  "lock": {
+    "state": "released",
+    "owner": null
+  },
+  "teams": [
+    {
+      "id": "team-1",
+      "name": "Jamal Hands",
+      "remaining": [
+        "1628973",
+        "1642270",
+        "1628368",
+        "1629636",
+        "1641706",
+        "1629660",
+        "1641824",
+        "1629639",
+        "203944"
+      ],
+      "available": [
+        "1630595",
+        "1641708",
+        "201935",
+        "1630578"
+      ]
+    },
+    {
+      "id": "team-2",
+      "name": "Bed, Bath And Biyombo",
+      "remaining": [
+        "1630168",
+        "203954",
+        "202699",
+        "1630202",
+        "202696",
+        "1631095",
+        "1641717",
+        "1629655",
+        "1629011"
+      ],
+      "available": [
+        "1629029",
+        "1628369",
+        "1630163",
+        "1629638"
+      ]
+    },
+    {
+      "id": "team-3",
+      "name": "Mulholland Drive",
+      "remaining": [
+        "1631117",
+        "1629027",
+        "1643410",
+        "1642259",
+        "1626181",
+        "1641764",
+        "2544",
+        "1627832",
+        "1627826"
+      ],
+      "available": [
+        "1630162",
+        "1627734",
+        "1630700",
+        "1629008"
+      ]
+    },
+    {
+      "id": "team-4",
+      "name": "Pile of Chet",
+      "remaining": [
+        "1642851",
+        "1628384",
+        "1630183",
+        "1641718",
+        "1629627",
+        "1642844",
+        "1630224",
+        "1630245",
+        "1630577"
+      ],
+      "available": [
+        "1628983",
+        "1630178",
+        "1628389",
+        "1628969"
+      ]
+    },
+    {
+      "id": "team-5",
+      "name": "Giddey's Kiddies",
+      "remaining": [
+        "1628374",
+        "1643409",
+        "1631099",
+        "1630193",
+        "1626167",
+        "1631221",
+        "1631212",
+        "201566",
+        "201572"
+      ],
+      "available": [
+        "203999",
+        "1630567",
+        "1628401",
+        "1630596"
+      ]
+    },
+    {
+      "id": "team-6",
+      "name": "The Bandwagoners",
+      "remaining": [
+        "1630581",
+        "1628970",
+        "1641709",
+        "204001",
+        "1643407",
+        "1642264",
+        "1628404",
+        "201942",
+        "1642856"
+      ],
+      "available": [
+        "1628378",
+        "1630552",
+        "202695",
+        "1627750"
+      ]
+    },
+    {
+      "id": "team-7",
+      "name": "Night Night",
+      "remaining": [
+        "1630559",
+        "1630530",
+        "1631096",
+        "203497",
+        "1630166",
+        "1642845",
+        "1627749",
+        "203468",
+        "1642852"
+      ],
+      "available": [
+        "1630169",
+        "203076",
+        "1626157",
+        "1631105"
+      ]
+    },
+    {
+      "id": "team-8",
+      "name": "TURNnBURN",
+      "remaining": [
+        "1630217",
+        "1627759",
+        "203952",
+        "202331",
+        "1628381",
+        "1631157",
+        "1629632",
+        "1629645",
+        "1641744"
+      ],
+      "available": [
+        "1641705",
+        "1642843",
+        "203507",
+        "1629675"
+      ]
+    },
+    {
+      "id": "team-9",
+      "name": "Daniel Stern",
+      "remaining": [
+        "1626164",
+        "1642276",
+        "202681",
+        "1628386",
+        "1642263",
+        "1630532",
+        "203081",
+        "1628991",
+        "1631094"
+      ],
+      "available": [
+        "1627783",
+        "201142",
+        "201939",
+        "1631114"
+      ]
+    }
+  ],
+  "latestValidation": {
+    "status": "passed",
+    "nodeTests": 26,
+    "workerdChecks": 21,
+    "reviewedPngs": 36,
+    "poseCropChecks": 576,
+    "nativeCanvasKits": 2,
+    "nativeCanvasFacings": 2,
+    "fullCourtNewPairs": [
+      "portrait",
+      "landscape"
+    ],
+    "browserQA": "Not run",
+    "realPhoneQA": "Not run"
+  },
+  "availablePlayers": 36,
+  "remainingPlayers": 81,
+  "lastVerifiedDeploymentBeforeThisCommit": {
+    "version": "0.7.0",
+    "players": 18
+  },
+  "deploymentStatus": "Local release validated; reconcile GitHub checks and live health after automatic deployment."
+}

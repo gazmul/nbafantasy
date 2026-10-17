@@ -1,0 +1,996 @@
+{
+  "batch": 1,
+  "method": "built-in image_gen, six standalone text prompts with no attached reference",
+  "players": [
+    {
+      "id": "201935",
+      "name": "James Harden",
+      "body": "193 cm, 100 kg, powerful stocky adult guard, dark brown skin, close-cropped black hair, distinctive very full long black beard",
+      "generated": "/workspace/scratch/7f7857384372/generated_images/exec-3d6faa8b-4d7d-4507-aa73-99536cd9d112.png",
+      "target": "/workspace/scratch/7f7857384372/fantasy-dual-cloudflare/public/art/player-201935-v2.png",
+      "prompt": "Use case: stylized-concept. Asset: production Fantasy Dual basketball videogame sprite atlas for James Harden. Subject: 193 cm, 100 kg, powerful stocky adult guard, dark brown skin, close-cropped black hair, distinctive very full long black beard. Original cyan basketball singlet and shorts with restrained gold piping, tiny FD monogram, white socks, cyan/ivory basketball shoes. Detailed hand-drawn pixel artwork, rich shaded musculature, crisp dark pixel outlines, natural realistic adult human proportions (small head about one seventh total body height), matching late-1990s premium 2D arcade sports sprite art. Genuine transparent background.\nEXACT layout: square atlas divided into FOUR equal columns and FOUR equal rows, sixteen complete isolated poses. Every pose entirely inside its own cell with generous transparent margins at all sides, full hands and shoes, no limb intersects a neighbouring cell. All poses face screen RIGHT. Same scale across all sixteen poses, anchored around centre of cell, athletic consistency.\nReading order left to right top to bottom: row1 idle standing ready, idle breathing, run stride1, run stride2; row2 run stride3, run stride4, run stride5, run stride6; row3 run stride7, run stride8, gather shooting crouch with empty hands, standing shooting release extended arms; row4 airborne dunk reach with empty hand, crouched landing, wide defensive crouch hands extended, upright celebration with raised fist. Exactly16 poses, no missing cells or extra figures. Eight running frames form coherent alternating-leg loop. No basketballs, no hoop, no court, no floor, no shadows, no background, no titles, no labels, no logos except tiny FD. Keep each character smaller than cell to preserve long stride and outstretched defensive arms. Match artwork reference palette and pixel shading, not photographic or 3D.",
+      "qa": {
+        "size": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "transparentPixels": 1066957,
+        "majorComponents": 16,
+        "components": [
+          {
+            "box": [
+              405,
+              4,
+              145,
+              299
+            ],
+            "area": 22350
+          },
+          {
+            "box": [
+              99,
+              5,
+              147,
+              298
+            ],
+            "area": 22475
+          },
+          {
+            "box": [
+              658,
+              17,
+              236,
+              282
+            ],
+            "area": 23089
+          },
+          {
+            "box": [
+              976,
+              18,
+              209,
+              279
+            ],
+            "area": 20464
+          },
+          {
+            "box": [
+              344,
+              328,
+              260,
+              273
+            ],
+            "area": 22880
+          },
+          {
+            "box": [
+              58,
+              329,
+              213,
+              281
+            ],
+            "area": 22565
+          },
+          {
+            "box": [
+              661,
+              329,
+              229,
+              283
+            ],
+            "area": 22757
+          },
+          {
+            "box": [
+              970,
+              329,
+              246,
+              279
+            ],
+            "area": 22937
+          },
+          {
+            "box": [
+              1042,
+              617,
+              156,
+              318
+            ],
+            "area": 18276
+          },
+          {
+            "box": [
+              343,
+              645,
+              251,
+              271
+            ],
+            "area": 23288
+          },
+          {
+            "box": [
+              29,
+              646,
+              244,
+              270
+            ],
+            "area": 24119
+          },
+          {
+            "box": [
+              707,
+              675,
+              165,
+              254
+            ],
+            "area": 20487
+          },
+          {
+            "box": [
+              53,
+              899,
+              222,
+              338
+            ],
+            "area": 20304
+          },
+          {
+            "box": [
+              1026,
+              946,
+              174,
+              300
+            ],
+            "area": 21659
+          },
+          {
+            "box": [
+              641,
+              997,
+              291,
+              230
+            ],
+            "area": 23742
+          },
+          {
+            "box": [
+              384,
+              1032,
+              174,
+              201
+            ],
+            "area": 19467
+          }
+        ],
+        "edgeAlphaPixels": 0,
+        "visual": "Inspected all sixteen complete poses; distinct identity, natural proportions; uniform cells may be exceeded by dunk/release so derive global-component crops rather than tile clipping."
+      }
+    },
+    {
+      "id": "1630578",
+      "name": "Alperen Sengun",
+      "body": "211 cm, 123 kg, tall strong broad adult centre, light olive skin, short dark brown hair, short dark beard",
+      "generated": "/workspace/scratch/7f7857384372/generated_images/exec-57c9f47b-c50b-40d6-9342-4c902892c2ac.png",
+      "target": "/workspace/scratch/7f7857384372/fantasy-dual-cloudflare/public/art/player-1630578-v2.png",
+      "prompt": "Use case: stylized-concept. Asset: production Fantasy Dual basketball videogame sprite atlas for Alperen Sengun. Subject: 211 cm, 123 kg, tall strong broad adult centre, light olive skin, short dark brown hair, short dark beard. Original cyan basketball singlet and shorts with restrained gold piping, tiny FD monogram, white socks, cyan/ivory basketball shoes. Detailed hand-drawn pixel artwork, rich shaded musculature, crisp dark pixel outlines, natural realistic adult human proportions (small head about one seventh total body height), matching late-1990s premium 2D arcade sports sprite art. Genuine transparent background.\nEXACT layout: square atlas divided into FOUR equal columns and FOUR equal rows, sixteen complete isolated poses. Every pose entirely inside its own cell with generous transparent margins at all sides, full hands and shoes, no limb intersects a neighbouring cell. All poses face screen RIGHT. Same scale across all sixteen poses, anchored around centre of cell, athletic consistency.\nReading order left to right top to bottom: row1 idle standing ready, idle breathing, run stride1, run stride2; row2 run stride3, run stride4, run stride5, run stride6; row3 run stride7, run stride8, gather shooting crouch with empty hands, standing shooting release extended arms; row4 airborne dunk reach with empty hand, crouched landing, wide defensive crouch hands extended, upright celebration with raised fist. Exactly16 poses, no missing cells or extra figures. Eight running frames form coherent alternating-leg loop. No basketballs, no hoop, no court, no floor, no shadows, no background, no titles, no labels, no logos except tiny FD. Keep each character smaller than cell to preserve long stride and outstretched defensive arms. Match artwork reference palette and pixel shading, not photographic or 3D.",
+      "qa": {
+        "size": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "transparentPixels": 1076810,
+        "majorComponents": 16,
+        "components": [
+          {
+            "box": [
+              113,
+              10,
+              116,
+              296
+            ],
+            "area": 19868
+          },
+          {
+            "box": [
+              418,
+              10,
+              110,
+              296
+            ],
+            "area": 19763
+          },
+          {
+            "box": [
+              675,
+              26,
+              207,
+              278
+            ],
+            "area": 21048
+          },
+          {
+            "box": [
+              965,
+              27,
+              256,
+              277
+            ],
+            "area": 19602
+          },
+          {
+            "box": [
+              42,
+              331,
+              231,
+              287
+            ],
+            "area": 22960
+          },
+          {
+            "box": [
+              347,
+              331,
+              242,
+              285
+            ],
+            "area": 19891
+          },
+          {
+            "box": [
+              977,
+              332,
+              248,
+              268
+            ],
+            "area": 22865
+          },
+          {
+            "box": [
+              657,
+              335,
+              223,
+              286
+            ],
+            "area": 21349
+          },
+          {
+            "box": [
+              1049,
+              611,
+              129,
+              328
+            ],
+            "area": 17934
+          },
+          {
+            "box": [
+              27,
+              642,
+              214,
+              290
+            ],
+            "area": 22818
+          },
+          {
+            "box": [
+              338,
+              645,
+              260,
+              279
+            ],
+            "area": 21152
+          },
+          {
+            "box": [
+              722,
+              690,
+              151,
+              245
+            ],
+            "area": 18482
+          },
+          {
+            "box": [
+              38,
+              923,
+              240,
+              320
+            ],
+            "area": 20702
+          },
+          {
+            "box": [
+              1029,
+              945,
+              172,
+              304
+            ],
+            "area": 21248
+          },
+          {
+            "box": [
+              637,
+              1020,
+              293,
+              218
+            ],
+            "area": 21664
+          },
+          {
+            "box": [
+              370,
+              1042,
+              205,
+              202
+            ],
+            "area": 18829
+          }
+        ],
+        "edgeAlphaPixels": 0,
+        "visual": "Inspected all sixteen complete poses; distinct identity, natural proportions; uniform cells may be exceeded by dunk/release so derive global-component crops rather than tile clipping."
+      }
+    },
+    {
+      "id": "1630163",
+      "name": "LaMelo Ball",
+      "body": "201 cm, 82 kg, tall slender adult guard, light brown skin, short loose curly dark hair, light facial hair",
+      "generated": "/workspace/scratch/7f7857384372/generated_images/exec-769f336a-2b25-4f00-985a-f32d8c3b05a3.png",
+      "target": "/workspace/scratch/7f7857384372/fantasy-dual-cloudflare/public/art/player-1630163-v2.png",
+      "prompt": "Use case: stylized-concept. Asset: production Fantasy Dual basketball videogame sprite atlas for LaMelo Ball. Subject: 201 cm, 82 kg, tall slender adult guard, light brown skin, short loose curly dark hair, light facial hair. Original cyan basketball singlet and shorts with restrained gold piping, tiny FD monogram, white socks, cyan/ivory basketball shoes. Detailed hand-drawn pixel artwork, rich shaded musculature, crisp dark pixel outlines, natural realistic adult human proportions (small head about one seventh total body height), matching late-1990s premium 2D arcade sports sprite art. Genuine transparent background.\nEXACT layout: square atlas divided into FOUR equal columns and FOUR equal rows, sixteen complete isolated poses. Every pose entirely inside its own cell with generous transparent margins at all sides, full hands and shoes, no limb intersects a neighbouring cell. All poses face screen RIGHT. Same scale across all sixteen poses, anchored around centre of cell, athletic consistency.\nReading order left to right top to bottom: row1 idle standing ready, idle breathing, run stride1, run stride2; row2 run stride3, run stride4, run stride5, run stride6; row3 run stride7, run stride8, gather shooting crouch with empty hands, standing shooting release extended arms; row4 airborne dunk reach with empty hand, crouched landing, wide defensive crouch hands extended, upright celebration with raised fist. Exactly16 poses, no missing cells or extra figures. Eight running frames form coherent alternating-leg loop. No basketballs, no hoop, no court, no floor, no shadows, no background, no titles, no labels, no logos except tiny FD. Keep each character smaller than cell to preserve long stride and outstretched defensive arms. Match artwork reference palette and pixel shading, not photographic or 3D.",
+      "qa": {
+        "size": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "transparentPixels": 1097976,
+        "majorComponents": 16,
+        "components": [
+          {
+            "box": [
+              95,
+              16,
+              123,
+              296
+            ],
+            "area": 18402
+          },
+          {
+            "box": [
+              421,
+              16,
+              104,
+              296
+            ],
+            "area": 16931
+          },
+          {
+            "box": [
+              966,
+              27,
+              246,
+              279
+            ],
+            "area": 18849
+          },
+          {
+            "box": [
+              659,
+              31,
+              228,
+              273
+            ],
+            "area": 19299
+          },
+          {
+            "box": [
+              31,
+              332,
+              243,
+              284
+            ],
+            "area": 18213
+          },
+          {
+            "box": [
+              974,
+              337,
+              246,
+              274
+            ],
+            "area": 20000
+          },
+          {
+            "box": [
+              357,
+              338,
+              218,
+              278
+            ],
+            "area": 19576
+          },
+          {
+            "box": [
+              660,
+              339,
+              237,
+              278
+            ],
+            "area": 20743
+          },
+          {
+            "box": [
+              1040,
+              628,
+              159,
+              312
+            ],
+            "area": 17927
+          },
+          {
+            "box": [
+              45,
+              641,
+              229,
+              293
+            ],
+            "area": 21087
+          },
+          {
+            "box": [
+              345,
+              643,
+              256,
+              285
+            ],
+            "area": 20083
+          },
+          {
+            "box": [
+              731,
+              687,
+              159,
+              251
+            ],
+            "area": 17157
+          },
+          {
+            "box": [
+              61,
+              913,
+              241,
+              323
+            ],
+            "area": 20209
+          },
+          {
+            "box": [
+              1049,
+              949,
+              121,
+              292
+            ],
+            "area": 16208
+          },
+          {
+            "box": [
+              651,
+              1011,
+              310,
+              211
+            ],
+            "area": 19433
+          },
+          {
+            "box": [
+              383,
+              1028,
+              200,
+              194
+            ],
+            "area": 17301
+          }
+        ],
+        "edgeAlphaPixels": 0,
+        "visual": "Inspected all sixteen complete poses; distinct identity, natural proportions; uniform cells may be exceeded by dunk/release so derive global-component crops rather than tile clipping."
+      }
+    },
+    {
+      "id": "1629638",
+      "name": "Nickeil Alexander-Walker",
+      "body": "196 cm, 93 kg, lean athletic adult guard, medium brown skin, black short twists, neatly trimmed beard",
+      "generated": "/workspace/scratch/7f7857384372/generated_images/exec-991f24d8-0d4f-4ffa-bacc-532a8a586fed.png",
+      "target": "/workspace/scratch/7f7857384372/fantasy-dual-cloudflare/public/art/player-1629638-v2.png",
+      "prompt": "Use case: stylized-concept. Asset: production Fantasy Dual basketball videogame sprite atlas for Nickeil Alexander-Walker. Subject: 196 cm, 93 kg, lean athletic adult guard, medium brown skin, black short twists, neatly trimmed beard. Original cyan basketball singlet and shorts with restrained gold piping, tiny FD monogram, white socks, cyan/ivory basketball shoes. Detailed hand-drawn pixel artwork, rich shaded musculature, crisp dark pixel outlines, natural realistic adult human proportions (small head about one seventh total body height), matching late-1990s premium 2D arcade sports sprite art. Genuine transparent background.\nEXACT layout: square atlas divided into FOUR equal columns and FOUR equal rows, sixteen complete isolated poses. Every pose entirely inside its own cell with generous transparent margins at all sides, full hands and shoes, no limb intersects a neighbouring cell. All poses face screen RIGHT. Same scale across all sixteen poses, anchored around centre of cell, athletic consistency.\nReading order left to right top to bottom: row1 idle standing ready, idle breathing, run stride1, run stride2; row2 run stride3, run stride4, run stride5, run stride6; row3 run stride7, run stride8, gather shooting crouch with empty hands, standing shooting release extended arms; row4 airborne dunk reach with empty hand, crouched landing, wide defensive crouch hands extended, upright celebration with raised fist. Exactly16 poses, no missing cells or extra figures. Eight running frames form coherent alternating-leg loop. No basketballs, no hoop, no court, no floor, no shadows, no background, no titles, no labels, no logos except tiny FD. Keep each character smaller than cell to preserve long stride and outstretched defensive arms. Match artwork reference palette and pixel shading, not photographic or 3D.",
+      "qa": {
+        "size": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "transparentPixels": 1046927,
+        "majorComponents": 16,
+        "components": [
+          {
+            "box": [
+              421,
+              7,
+              113,
+              299
+            ],
+            "area": 19127
+          },
+          {
+            "box": [
+              89,
+              8,
+              153,
+              297
+            ],
+            "area": 21410
+          },
+          {
+            "box": [
+              674,
+              16,
+              216,
+              285
+            ],
+            "area": 21355
+          },
+          {
+            "box": [
+              985,
+              17,
+              227,
+              285
+            ],
+            "area": 21355
+          },
+          {
+            "box": [
+              367,
+              322,
+              226,
+              289
+            ],
+            "area": 22121
+          },
+          {
+            "box": [
+              38,
+              325,
+              245,
+              285
+            ],
+            "area": 23090
+          },
+          {
+            "box": [
+              666,
+              326,
+              257,
+              290
+            ],
+            "area": 22638
+          },
+          {
+            "box": [
+              982,
+              328,
+              234,
+              283
+            ],
+            "area": 21873
+          },
+          {
+            "box": [
+              1053,
+              616,
+              153,
+              317
+            ],
+            "area": 16903
+          },
+          {
+            "box": [
+              43,
+              640,
+              230,
+              281
+            ],
+            "area": 22018
+          },
+          {
+            "box": [
+              355,
+              640,
+              229,
+              280
+            ],
+            "area": 22796
+          },
+          {
+            "box": [
+              734,
+              667,
+              156,
+              262
+            ],
+            "area": 18886
+          },
+          {
+            "box": [
+              39,
+              920,
+              238,
+              319
+            ],
+            "area": 21003
+          },
+          {
+            "box": [
+              1038,
+              946,
+              156,
+              307
+            ],
+            "area": 19428
+          },
+          {
+            "box": [
+              634,
+              1006,
+              312,
+              225
+            ],
+            "area": 22136
+          },
+          {
+            "box": [
+              371,
+              1022,
+              207,
+              215
+            ],
+            "area": 20041
+          }
+        ],
+        "edgeAlphaPixels": 0,
+        "visual": "Inspected all sixteen complete poses; distinct identity, natural proportions; uniform cells may be exceeded by dunk/release so derive global-component crops rather than tile clipping."
+      }
+    },
+    {
+      "id": "1630700",
+      "name": "Dyson Daniels",
+      "body": "201 cm, 90 kg, long lean adult guard, light brown skin, short dark curly hair, little facial hair",
+      "generated": "/workspace/scratch/7f7857384372/generated_images/exec-cbe5634d-79fb-434f-b2fe-fdafbd334201.png",
+      "target": "/workspace/scratch/7f7857384372/fantasy-dual-cloudflare/public/art/player-1630700-v2.png",
+      "prompt": "Use case: stylized-concept. Asset: production Fantasy Dual basketball videogame sprite atlas for Dyson Daniels. Subject: 201 cm, 90 kg, long lean adult guard, light brown skin, short dark curly hair, little facial hair. Original cyan basketball singlet and shorts with restrained gold piping, tiny FD monogram, white socks, cyan/ivory basketball shoes. Detailed hand-drawn pixel artwork, rich shaded musculature, crisp dark pixel outlines, natural realistic adult human proportions (small head about one seventh total body height), matching late-1990s premium 2D arcade sports sprite art. Genuine transparent background.\nEXACT layout: square atlas divided into FOUR equal columns and FOUR equal rows, sixteen complete isolated poses. Every pose entirely inside its own cell with generous transparent margins at all sides, full hands and shoes, no limb intersects a neighbouring cell. All poses face screen RIGHT. Same scale across all sixteen poses, anchored around centre of cell, athletic consistency.\nReading order left to right top to bottom: row1 idle standing ready, idle breathing, run stride1, run stride2; row2 run stride3, run stride4, run stride5, run stride6; row3 run stride7, run stride8, gather shooting crouch with empty hands, standing shooting release extended arms; row4 airborne dunk reach with empty hand, crouched landing, wide defensive crouch hands extended, upright celebration with raised fist. Exactly16 poses, no missing cells or extra figures. Eight running frames form coherent alternating-leg loop. No basketballs, no hoop, no court, no floor, no shadows, no background, no titles, no labels, no logos except tiny FD. Keep each character smaller than cell to preserve long stride and outstretched defensive arms. Match artwork reference palette and pixel shading, not photographic or 3D.",
+      "qa": {
+        "size": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "transparentPixels": 1058626,
+        "majorComponents": 16,
+        "components": [
+          {
+            "box": [
+              416,
+              6,
+              125,
+              303
+            ],
+            "area": 19711
+          },
+          {
+            "box": [
+              97,
+              7,
+              128,
+              302
+            ],
+            "area": 20295
+          },
+          {
+            "box": [
+              977,
+              21,
+              242,
+              275
+            ],
+            "area": 21322
+          },
+          {
+            "box": [
+              651,
+              27,
+              240,
+              273
+            ],
+            "area": 20926
+          },
+          {
+            "box": [
+              660,
+              330,
+              232,
+              289
+            ],
+            "area": 21894
+          },
+          {
+            "box": [
+              342,
+              331,
+              264,
+              287
+            ],
+            "area": 20490
+          },
+          {
+            "box": [
+              29,
+              335,
+              240,
+              273
+            ],
+            "area": 21834
+          },
+          {
+            "box": [
+              957,
+              339,
+              275,
+              273
+            ],
+            "area": 22125
+          },
+          {
+            "box": [
+              1058,
+              621,
+              139,
+              318
+            ],
+            "area": 18569
+          },
+          {
+            "box": [
+              31,
+              646,
+              226,
+              284
+            ],
+            "area": 21808
+          },
+          {
+            "box": [
+              339,
+              656,
+              248,
+              271
+            ],
+            "area": 20386
+          },
+          {
+            "box": [
+              724,
+              671,
+              159,
+              265
+            ],
+            "area": 20666
+          },
+          {
+            "box": [
+              42,
+              916,
+              237,
+              317
+            ],
+            "area": 18668
+          },
+          {
+            "box": [
+              1044,
+              943,
+              132,
+              310
+            ],
+            "area": 19580
+          },
+          {
+            "box": [
+              652,
+              994,
+              305,
+              237
+            ],
+            "area": 22094
+          },
+          {
+            "box": [
+              379,
+              1034,
+              182,
+              203
+            ],
+            "area": 18677
+          }
+        ],
+        "edgeAlphaPixels": 0,
+        "visual": "Inspected all sixteen complete poses; distinct identity, natural proportions; uniform cells may be exceeded by dunk/release so derive global-component crops rather than tile clipping."
+      }
+    },
+    {
+      "id": "1629008",
+      "name": "Michael Porter Jr.",
+      "body": "208 cm, 105 kg, tall lean muscular adult forward, light brown skin, short tight black curls, neatly trimmed beard",
+      "generated": "/workspace/scratch/7f7857384372/generated_images/exec-d92dcd07-0af9-4181-a434-31661d31b18d.png",
+      "target": "/workspace/scratch/7f7857384372/fantasy-dual-cloudflare/public/art/player-1629008-v2.png",
+      "prompt": "Use case: stylized-concept. Asset: production Fantasy Dual basketball videogame sprite atlas for Michael Porter Jr.. Subject: 208 cm, 105 kg, tall lean muscular adult forward, light brown skin, short tight black curls, neatly trimmed beard. Original cyan basketball singlet and shorts with restrained gold piping, tiny FD monogram, white socks, cyan/ivory basketball shoes. Detailed hand-drawn pixel artwork, rich shaded musculature, crisp dark pixel outlines, natural realistic adult human proportions (small head about one seventh total body height), matching late-1990s premium 2D arcade sports sprite art. Genuine transparent background.\nEXACT layout: square atlas divided into FOUR equal columns and FOUR equal rows, sixteen complete isolated poses. Every pose entirely inside its own cell with generous transparent margins at all sides, full hands and shoes, no limb intersects a neighbouring cell. All poses face screen RIGHT. Same scale across all sixteen poses, anchored around centre of cell, athletic consistency.\nReading order left to right top to bottom: row1 idle standing ready, idle breathing, run stride1, run stride2; row2 run stride3, run stride4, run stride5, run stride6; row3 run stride7, run stride8, gather shooting crouch with empty hands, standing shooting release extended arms; row4 airborne dunk reach with empty hand, crouched landing, wide defensive crouch hands extended, upright celebration with raised fist. Exactly16 poses, no missing cells or extra figures. Eight running frames form coherent alternating-leg loop. No basketballs, no hoop, no court, no floor, no shadows, no background, no titles, no labels, no logos except tiny FD. Keep each character smaller than cell to preserve long stride and outstretched defensive arms. Match artwork reference palette and pixel shading, not photographic or 3D.",
+      "qa": {
+        "size": [
+          1254,
+          1254
+        ],
+        "mode": "RGBA",
+        "transparentPixels": 1158997,
+        "majorComponents": 16,
+        "components": [
+          {
+            "box": [
+              120,
+              12,
+              119,
+              293
+            ],
+            "area": 16715
+          },
+          {
+            "box": [
+              421,
+              12,
+              107,
+              294
+            ],
+            "area": 16804
+          },
+          {
+            "box": [
+              975,
+              18,
+              219,
+              277
+            ],
+            "area": 18540
+          },
+          {
+            "box": [
+              670,
+              24,
+              219,
+              279
+            ],
+            "area": 18291
+          },
+          {
+            "box": [
+              99,
+              327,
+              144,
+              289
+            ],
+            "area": 16741
+          },
+          {
+            "box": [
+              376,
+              327,
+              169,
+              289
+            ],
+            "area": 17552
+          },
+          {
+            "box": [
+              973,
+              331,
+              215,
+              282
+            ],
+            "area": 19459
+          },
+          {
+            "box": [
+              638,
+              335,
+              280,
+              270
+            ],
+            "area": 21240
+          },
+          {
+            "box": [
+              1056,
+              618,
+              133,
+              322
+            ],
+            "area": 14967
+          },
+          {
+            "box": [
+              58,
+              642,
+              213,
+              291
+            ],
+            "area": 20834
+          },
+          {
+            "box": [
+              350,
+              642,
+              239,
+              284
+            ],
+            "area": 20666
+          },
+          {
+            "box": [
+              728,
+              665,
+              153,
+              264
+            ],
+            "area": 18685
+          },
+          {
+            "box": [
+              58,
+              922,
+              198,
+              319
+            ],
+            "area": 16115
+          },
+          {
+            "box": [
+              1037,
+              947,
+              147,
+              295
+            ],
+            "area": 18026
+          },
+          {
+            "box": [
+              658,
+              1005,
+              281,
+              215
+            ],
+            "area": 19499
+          },
+          {
+            "box": [
+              404,
+              1030,
+              136,
+              197
+            ],
+            "area": 16386
+          }
+        ],
+        "edgeAlphaPixels": 0,
+        "visual": "Inspected all sixteen complete poses; distinct identity, natural proportions; uniform cells may be exceeded by dunk/release so derive global-component crops rather than tile clipping."
+      }
+    }
+  ]
+}

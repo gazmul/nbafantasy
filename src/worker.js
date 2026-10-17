@@ -1,4 +1,4 @@
-import {validateLeaders} from '../public/featured.js';
+import {FEATURED,validateLeaders} from '../public/featured.js';
 import {createGame} from './engine.js';
 import {teamFor,buildTeam,cleanName,publicOwner} from './room-policy.js';
 
@@ -11,7 +11,7 @@ export default {
  async fetch(request,env){
   const url=new URL(request.url);
   if(!url.pathname.startsWith('/api/'))return secure(await env.ASSETS.fetch(request),url);
-  if(url.pathname==='/api/health')return json({ok:true,version:'0.7.0',realtime:'cloudflare-durable-objects',rosters:9,players:117,featuredPlayers:18});
+  if(url.pathname==='/api/health')return json({ok:true,version:'0.8.0',realtime:'cloudflare-durable-objects',rosters:9,players:117,featuredPlayers:FEATURED.length});
   if(request.headers.get('Origin')&&request.headers.get('Origin')!==url.origin)return json({error:'Use this game’s own website.'},403);
   const max=Number(request.headers.get('Content-Length')||0);if(max>16000)return json({error:'Request too large.'},413);
   try{

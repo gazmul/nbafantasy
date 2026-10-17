@@ -1,0 +1,158 @@
+{
+  "batch": 2,
+  "method": "built-in image_gen",
+  "referenceInspected": "public/art/player-1630595-v2.png",
+  "regenerationReason": "Initial reference-based outputs copied source's clipped bottom-right celebration. Regenerated without reference attachment to obtain complete feet and distinct identities.",
+  "poseOrder": [
+    "idleA",
+    "idleB",
+    "run1",
+    "run2",
+    "run3",
+    "run4",
+    "run5",
+    "run6",
+    "run7",
+    "run8",
+    "gather",
+    "release",
+    "dunk",
+    "landing",
+    "defend",
+    "celebrate"
+  ],
+  "entries": [
+    {
+      "id": "1628389",
+      "name": "Bam Adebayo",
+      "description": "205.74 cm, 117.93 kg; powerful broad muscular centre, deep brown skin, short black close-cropped hair and shaped beard",
+      "generatedPath": "/workspace/scratch/7f7857384372/generated_images/exec-2cfa5c66-8247-41ff-9726-257471595288.png",
+      "savedPath": "public/art/player-1628389-v2.png",
+      "outcome": "Approved after visual inspection: 16 complete isolated poses, all hands and shoes included; generated PNG copied unmodified.",
+      "prompt": "Original production basketball pixel sprite atlas of Bam Adebayo; square RGBA, 4x4 sixteen complete full-body poses, cyan/gold FD original kit, realistic adult proportions, all hands/shoes contained with transparent margin. Same pose order and technical constraints as other entries.",
+      "analysis": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "majorAlphaComponents": 16,
+        "rowComponentCounts": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "opaqueEdgePixels": 0
+      }
+    },
+    {
+      "id": "1628969",
+      "name": "Mikal Bridges",
+      "description": "198.12 cm, 94.80 kg; very long lean arms, slender athletic forward, medium-brown skin, short black curls, neat goatee",
+      "generatedPath": "/workspace/scratch/7f7857384372/generated_images/exec-c35ab81c-d310-4869-b0e9-b8f5ce1adc73.png",
+      "savedPath": "public/art/player-1628969-v2.png",
+      "outcome": "Approved after visual inspection: 16 complete isolated poses, all hands and shoes included; generated PNG copied unmodified.",
+      "prompt": "Use case: stylized-concept. Produce an ORIGINAL production basketball pixel sprite atlas of Mikal Bridges: 198.12 cm, 94.80 kg; extremely lean long-limbed adult forward, medium brown skin, very short cropped black curls, neat goatee, approximately 7.5 heads tall. Square canvas, transparent background, EXACTLY 4 columns x 4 rows, 16 complete figures. Each pose occupies only central 70% width and 75% height of its individual equal cell. Leave large empty transparent spaces between figures, and especially below shoes in bottom row and above raised hands. ALL SIXTEEN athletes show ENTIRE body INCLUDING both shoes. No limb can touch canvas boundaries. High detail crisp pixel art, 1990s premium arcade shading with realistic adult anatomy; no chibi or oversized heads. Original turquoise cyan vest and shorts, small gold FD initials on chest and gold piping, white socks, cyan white shoes. All figures face RIGHT, consistent size and coherent identity. Exact row-major poses: idle A, idle B, run1, run2 / run3, run4, run5, run6 / run7, run8, shot gather crouch, shooting release arms high / airborne one arm dunk reaching high, crouched landing, low defending arms out, celebration standing one raised fist. Even celebration in bottom-right MUST include feet with transparent pixels BELOW BOTH SOLES, reduce this pose scale slightly if necessary. Transparent background, no basketballs, no floor/shadows, no captions, no grid, no labels, no effects, no watermarks.",
+      "analysis": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "majorAlphaComponents": 16,
+        "rowComponentCounts": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "opaqueEdgePixels": 0
+      }
+    },
+    {
+      "id": "1628401",
+      "name": "Derrick White",
+      "description": "193.04 cm, 90.72 kg; lean muscular guard, light-medium brown skin, shaved bald head and dark full short beard",
+      "generatedPath": "/workspace/scratch/7f7857384372/generated_images/exec-382eb758-cef5-450f-b999-7ca437670a90.png",
+      "savedPath": "public/art/player-1628401-v2.png",
+      "outcome": "Approved after visual inspection: 16 complete isolated poses, all hands and shoes included; generated PNG copied unmodified.",
+      "prompt": "Use case: stylized-concept. Produce an ORIGINAL production basketball pixel sprite atlas of Derrick White: 193.04 cm, 90.72 kg; lean muscular adult guard, light-medium brown skin, shaved bald head and dark full short beard, approximately 7.5 heads tall. Square canvas, transparent background, EXACTLY 4 columns x 4 rows, 16 complete figures. Each pose occupies only central 70% width and 75% height of its individual equal cell. Leave large empty transparent spaces between figures, and especially below shoes in bottom row and above raised hands. ALL SIXTEEN athletes show ENTIRE body INCLUDING both shoes. No limb can touch canvas boundaries. High detail crisp pixel art, 1990s premium arcade shading with realistic adult anatomy; no chibi or oversized heads. Original turquoise cyan vest and shorts, small gold FD initials on chest and gold piping, white socks, cyan white shoes. All figures face RIGHT, consistent size and coherent identity. Exact row-major poses: idle A, idle B, run1, run2 / run3, run4, run5, run6 / run7, run8, shot gather crouch, shooting release arms high / airborne one arm dunk reaching high, crouched landing, low defending arms out, celebration standing one raised fist. Even celebration in bottom-right MUST include feet with transparent pixels BELOW BOTH SOLES, reduce this pose scale slightly if necessary. Transparent background, no basketballs, no floor/shadows, no captions, no grid, no labels, no effects, no watermarks.",
+      "analysis": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "majorAlphaComponents": 16,
+        "rowComponentCounts": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "opaqueEdgePixels": 0
+      }
+    },
+    {
+      "id": "1630596",
+      "name": "Evan Mobley",
+      "description": "210.82 cm, 104.33 kg; tall slim lanky centre, deep brown skin, short rounded black curls and small goatee",
+      "generatedPath": "/workspace/scratch/7f7857384372/generated_images/exec-cf38a98d-b0f4-4866-aad5-92445dc8fc16.png",
+      "savedPath": "public/art/player-1630596-v2.png",
+      "outcome": "Approved after visual inspection: 16 complete isolated poses, all hands and shoes included; generated PNG copied unmodified.",
+      "prompt": "Use case: stylized-concept. Produce an ORIGINAL production basketball pixel sprite atlas of Evan Mobley: 210.82 cm, 104.33 kg; exceptionally tall slim lanky adult centre, deep brown skin, short rounded black curls and small goatee, approximately 7.5 heads tall. Square canvas, transparent background, EXACTLY 4 columns x 4 rows, 16 complete figures. Each pose occupies only central 70% width and 75% height of its individual equal cell. Leave large empty transparent spaces between figures, and especially below shoes in bottom row and above raised hands. ALL SIXTEEN athletes show ENTIRE body INCLUDING both shoes. No limb can touch canvas boundaries. High detail crisp pixel art, 1990s premium arcade shading with realistic adult anatomy; no chibi or oversized heads. Original turquoise cyan vest and shorts, small gold FD initials on chest and gold piping, white socks, cyan white shoes. All figures face RIGHT, consistent size and coherent identity. Exact row-major poses: idle A, idle B, run1, run2 / run3, run4, run5, run6 / run7, run8, shot gather crouch, shooting release arms high / airborne one arm dunk reaching high, crouched landing, low defending arms out, celebration standing one raised fist. Even celebration in bottom-right MUST include feet with transparent pixels BELOW BOTH SOLES, reduce this pose scale slightly if necessary. Transparent background, no basketballs, no floor/shadows, no captions, no grid, no labels, no effects, no watermarks.",
+      "analysis": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "majorAlphaComponents": 16,
+        "rowComponentCounts": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "opaqueEdgePixels": 0
+      }
+    },
+    {
+      "id": "202695",
+      "name": "Kawhi Leonard",
+      "description": "200.66 cm, 102.06 kg; muscular broad-shouldered forward, medium-brown skin, black cornrows and close beard",
+      "generatedPath": "/workspace/scratch/7f7857384372/generated_images/exec-f88a633a-3b4f-4fb2-8e26-c13a072f6f96.png",
+      "savedPath": "public/art/player-202695-v2.png",
+      "outcome": "Approved after visual inspection: 16 complete isolated poses, all hands and shoes included; generated PNG copied unmodified.",
+      "prompt": "Use case: stylized-concept. Produce an ORIGINAL production basketball pixel sprite atlas of Kawhi Leonard: 200.66 cm, 102.06 kg; muscular broad-shouldered adult forward, medium-brown skin, black cornrows and close beard, approximately 7.5 heads tall. Square canvas, transparent background, EXACTLY 4 columns x 4 rows, 16 complete figures. Each pose occupies only central 70% width and 75% height of its individual equal cell. Leave large empty transparent spaces between figures, and especially below shoes in bottom row and above raised hands. ALL SIXTEEN athletes show ENTIRE body INCLUDING both shoes. No limb can touch canvas boundaries. High detail crisp pixel art, 1990s premium arcade shading with realistic adult anatomy; no chibi or oversized heads. Original turquoise cyan vest and shorts, small gold FD initials on chest and gold piping, white socks, cyan white shoes. All figures face RIGHT, consistent size and coherent identity. Exact row-major poses: idle A, idle B, run1, run2 / run3, run4, run5, run6 / run7, run8, shot gather crouch, shooting release arms high / airborne one arm dunk reaching high, crouched landing, low defending arms out, celebration standing one raised fist. Even celebration in bottom-right MUST include feet with transparent pixels BELOW BOTH SOLES, reduce this pose scale slightly if necessary. Transparent background, no basketballs, no floor/shadows, no captions, no grid, no labels, no effects, no watermarks.",
+      "analysis": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "majorAlphaComponents": 16,
+        "rowComponentCounts": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "opaqueEdgePixels": 0
+      }
+    },
+    {
+      "id": "1627750",
+      "name": "Jamal Murray",
+      "description": "193.04 cm, 97.52 kg; sturdy athletic guard, warm light-brown skin, short black curly hair and close dark beard",
+      "generatedPath": "/workspace/scratch/7f7857384372/generated_images/exec-8d43a5b0-42e1-499c-b6a9-6be40d74e73b.png",
+      "savedPath": "public/art/player-1627750-v2.png",
+      "outcome": "Approved after visual inspection: 16 complete isolated poses, all hands and shoes included; generated PNG copied unmodified.",
+      "prompt": "Use case: stylized-concept. Produce an ORIGINAL production basketball pixel sprite atlas of Jamal Murray: 193.04 cm, 97.52 kg; sturdy athletic adult guard, warm light-brown skin, short black curly hair and close dark beard, approximately 7.5 heads tall. Square canvas, transparent background, EXACTLY 4 columns x 4 rows, 16 complete figures. Each pose occupies only central 70% width and 75% height of its individual equal cell. Leave large empty transparent spaces between figures, and especially below shoes in bottom row and above raised hands. ALL SIXTEEN athletes show ENTIRE body INCLUDING both shoes. No limb can touch canvas boundaries. High detail crisp pixel art, 1990s premium arcade shading with realistic adult anatomy; no chibi or oversized heads. Original turquoise cyan vest and shorts, small gold FD initials on chest and gold piping, white socks, cyan white shoes. All figures face RIGHT, consistent size and coherent identity. Exact row-major poses: idle A, idle B, run1, run2 / run3, run4, run5, run6 / run7, run8, shot gather crouch, shooting release arms high / airborne one arm dunk reaching high, crouched landing, low defending arms out, celebration standing one raised fist. Even celebration in bottom-right MUST include feet with transparent pixels BELOW BOTH SOLES, reduce this pose scale slightly if necessary. Transparent background, no basketballs, no floor/shadows, no captions, no grid, no labels, no effects, no watermarks.",
+      "analysis": {
+        "width": 1254,
+        "height": 1254,
+        "mode": "RGBA",
+        "majorAlphaComponents": 16,
+        "rowComponentCounts": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "opaqueEdgePixels": 0
+      }
+    }
+  ]
+}

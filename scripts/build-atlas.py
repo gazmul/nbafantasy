@@ -18,7 +18,7 @@ for p in json.loads((root/'featured.json').read_text()):
  sizes=np.bincount(labels.ravel());rows=[[],[],[],[]]
  for j,s in enumerate(find_objects(labels)):
   if sizes[j+1]<3000:continue
-  ys,xs=s;row=0 if ys.start<150 else 1 if ys.start<450 else 2 if ys.start<800 else 3
+  ys,xs=s;row=min(3,int(((ys.start+ys.stop)/2)/(h/4)))
   rows[row].append((xs.start,ys.start,xs.stop,ys.stop))
  for row in rows:row.sort(key=lambda b:(b[0]+b[2])/2)
  assert [len(r) for r in rows] in ([4,4,4,4],[4,4,4,3]),(p['name'],rows)

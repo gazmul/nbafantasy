@@ -9,10 +9,10 @@ const request=async(path,body,token)=>{const headers={'Content-Type':'applicatio
 async function open(code,token){let response=await mf.dispatchFetch(`http://test.local/api/rooms/${code}/socket`,{headers:{Upgrade:'websocket','Sec-WebSocket-Protocol':'fd-v1, fd-session.'+token}});assert.equal(response.status,101);const socket=response.webSocket;socket.accept();const peer={socket,received:[],state:null,room:null,paused:''};socket.addEventListener('message',e=>{const msg=JSON.parse(e.data);peer.received.push(msg);if(msg.room)peer.room=msg.room;if(msg.state)peer.state=msg.state;if(msg.type==='state')peer.paused=msg.pausedReason||'';if(msg.type==='pause')peer.paused=msg.reason||'';});sockets.push(socket);return peer;}
 const send=(p,m)=>p.socket.send(JSON.stringify(m));
 const wait=async(predicate,message,ms=5000)=>{const until=Date.now()+ms;while(Date.now()<until){if(predicate())return;await sleep(30);}throw Error(message);};
-const selected=i=>catalog.teams[i].players.slice(0,2).map(p=>p.id);
+const selected=(i,slots=[0,1])=>slots.map(slot=>catalog.teams[i].players[slot].id);
 try{
  await mf.ready;
- const health=await request('/api/health');assert.equal(health.data.players,117);checks.push('Worker boots in the actual Cloudflare workerd runtime');
+ const health=await request('/api/health');assert.equal(health.data.players,117);assert.equal(health.data.featuredPlayers,36);checks.push('Worker boots in the actual Cloudflare workerd runtime');
  const inviteHost=await request('/api/rooms',{teamId:'team-6',mode:'test'});assert.equal(inviteHost.status,200);
  const inviteCode=inviteHost.data.room.code;const preview=await request(`/api/rooms/${inviteCode}/preview`);assert.equal(preview.data.teamId,'team-6');assert.equal(preview.data.canJoin,true);assert(!JSON.stringify(preview.data).includes('token'));
  const inviteGuest=await request(`/api/rooms/${inviteCode}/join`,{teamId:'team-7'});assert.equal(inviteGuest.status,200);assert.equal(inviteGuest.data.room.code,inviteCode);assert.equal((await request(`/api/rooms/${inviteCode}/preview`)).data.canJoin,false);checks.push('Direct invitation joins the exact room; public preview exposes no session credentials');
@@ -25,8 +25,14 @@ try{
  assert.equal((await request(`/api/rooms/${code}/join`,{owner:'Third QA',teamId:'team-2'})).status,409);checks.push('Different teams required; a third owner cannot join');
  const blue=await open(code,h),orange=await open(code,g);
  send(blue,{type:'ready',submission:{eligible:true,selected:selected(0)}});await wait(()=>blue.received.some(m=>m.type==='error'),'Foreign roster should be rejected');checks.push('A player from a different fantasy roster is rejected');
- send(blue,{type:'ready',submission:{eligible:true,selected:selected(2)}});await sleep(150);assert(!blue.received.some(m=>m.type==='start'));checks.push('One ready owner cannot start the duel alone');
- send(orange,{type:'ready',submission:{eligible:true,selected:selected(0)}});await wait(()=>blue.received.some(m=>m.type==='start')&&orange.received.some(m=>m.type==='start'),'Both owners should receive match start');
+ for(const invalid of [selected(2,[2]),selected(2,[0,2,3]),selected(2,[2,2]),selected(2,[2,4])]){const errors=blue.received.filter(m=>m.type==='error').length;send(blue,{type:'ready',submission:{eligible:true,selected:invalid}});await wait(()=>blue.received.filter(m=>m.type==='error').length>errors,'Invalid expanded roster selection must be rejected');assert(!blue.received.some(m=>m.type==='start'));}
+ checks.push('Server rejects one or three picks, duplicate picks and the unavailable fifth roster player');
+ send(blue,{type:'ready',submission:{eligible:true,selected:selected(2,[0,2])}});await sleep(150);assert(!blue.received.some(m=>m.type==='start'));checks.push('One ready owner cannot start the duel alone');
+ send(orange,{type:'ready',submission:{eligible:true,selected:selected(0,[2,3])}});await wait(()=>blue.received.some(m=>m.type==='start')&&orange.received.some(m=>m.type==='start'),'Both owners should receive match start');
+ const expected=[catalog.teams[2].players[0],catalog.teams[2].players[2],catalog.teams[0].players[2],catalog.teams[0].players[3]];
+ assert.equal(blue.state.ps.length,4);assert.deepEqual(blue.state.ps.map(p=>p.name),expected.map(p=>p.name.slice(0,30)));assert.deepEqual(blue.state.ps,orange.state.ps);
+ for(let i=0;i<expected.length;i++){const p=expected[i],actor=blue.state.ps[i],owner=blue.room.owners[actor.team],entry=owner.team.players.find(q=>q.id===p.id);assert.equal(entry.h,p.heightCm);assert.equal(entry.w,p.weightKg);assert.equal(actor.r.scale,Math.max(.85,Math.min(1.15,p.heightCm/198)));assert.equal(actor.r.build,Math.max(.82,Math.min(1.23,Math.sqrt(p.weightKg/90)/(p.heightCm/198))));}
+ checks.push('Different pairs from four available players start together; both sockets receive the correct new athletes and server-derived physiques');
  const beat=setInterval(()=>{send(blue,{type:'ping',at:Date.now()});send(orange,{type:'ping',at:Date.now()});},1000);
  await wait(()=>blue.state?.phase==='playing'&&orange.state?.phase==='playing','Countdown should enter live play');assert(blue.state.ps[0].fire>0,'Room-selected demo weekly guard should start on fire');assert.equal(blue.state.ps[1].fire,0);checks.push('Both owners receive shared countdown, live match and server-seeded weekly fire');
  const start=blue.state.ps[2].x;send(orange,{type:'input',control:{x:-1,y:0},events:[]});await sleep(550);send(orange,{type:'input',control:{x:0,y:0},events:[]});await sleep(80);assert(blue.state.ps[2].x<start-35);assert.deepEqual(blue.state.scores,orange.state.scores);checks.push('Orange input moves the authoritative simulation visible to blue');
