@@ -4,7 +4,7 @@ Owner direction: add two more players per fantasy team now, then continue overni
 
 Canonical repository: `gazmul/nbafantasy`, branch `main`. The existing GitHub → Cloudflare integration publishes to https://nbafantasy.gwmulholland.workers.dev. No second site, no manual ZIP, no login system, no replacement infrastructure.
 
-Current visual baseline: v0.8.1 uses the perspective camera in `public/camera.js`, depth-sorted athletes, raised glass backboards/rims/nets/shot clocks, per-athlete dunk reach and elevated shot endpoints. No crowd. Preserve this camera when expanding the roster. Run `node scripts/render-court-qa.mjs` alongside the athlete sheet renderer; do not restore the old flat court or floor-level hoop drawing.
+Current visual baseline: v0.8.2 uses the perspective camera in `public/camera.js`, depth-sorted athletes, raised glass backboards/rims/nets/shot clocks, per-athlete dunk reach and elevated shot endpoints. No crowd. Giant 0.94-second dunk launches, cosmetic sprite enlargement/trails, rim/net impacts and animated DUNK/STEAL/BLOCK/MISS typography live in camera.js, court.js and play-effects.js. Preserve server-generated playSeq/playEvent sequencing, blocked-shot suppression of MISS, reduced-motion support and single-event typography when adding athletes. Preserve this camera when expanding the roster. Run `node scripts/render-court-qa.mjs` alongside the athlete sheet renderer; do not restore the old flat court or floor-level hoop drawing.
 
 ## Current source of truth
 

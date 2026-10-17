@@ -1,5 +1,5 @@
 {
-  "version": "0.8.1",
+  "version": "0.8.2",
   "workerdIntegration": {
     "passed": true,
     "checks": [
@@ -46,7 +46,7 @@
       "no match-state mutations"
     ]
   },
-  "totalNodeTests": 29,
+  "totalNodeTests": 35,
   "nativeCanvasQA": {
     "passed": true,
     "method": "actual decoded PNG atlases rendered by actual athlete/court modules on native canvas",
@@ -163,6 +163,36 @@
     "backboards": "raised glass with nets and shot clocks",
     "shotEndpoint": "matches projected raised rim",
     "dunkLift": "matches individual sprite reach",
+    "browserQA": "Not run",
+    "realPhoneQA": "Not run"
+  },
+  "massiveDunksAndTypography": {
+    "passed": true,
+    "dunkAirtimeSeconds": 0.94,
+    "maxCosmeticScale": 1.42,
+    "events": [
+      "dunk",
+      "steal",
+      "block",
+      "miss"
+    ],
+    "authoritativeSequencing": true,
+    "duplicateAndStaleEventsTested": true,
+    "blockedShotDoesNotAnnounceMiss": true,
+    "reducedMotion": true,
+    "nativeCanvasViews": [
+      "apex-left",
+      "apex-portrait",
+      "dunk-left",
+      "dunk-right",
+      "dunk-portrait",
+      "impact-landscape",
+      "impact-portrait",
+      "steal",
+      "block",
+      "miss"
+    ],
+    "rendererMutatedMatchState": false,
     "browserQA": "Not run",
     "realPhoneQA": "Not run"
   }

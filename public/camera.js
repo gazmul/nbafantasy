@@ -18,4 +18,14 @@ export function shotPosition(shot,releaseHeight=104){
  return {x:shot.from.x+(shot.to.x-shot.from.x)*t,y:shot.from.y+(shot.to.y-shot.from.y)*t,
   z:start+(RIM_HEIGHT-start)*t+Math.sin(t*Math.PI)*(shot.dunk?32:112)};
 }
-export function dunkLift(progress,reach){return Math.max(12,RIM_HEIGHT-reach+3)*Math.sin(Math.min(1,Math.max(0,progress)/.68)*Math.PI/2);}
+// A huge arcade launch followed by a controlled hammer-down to the real rim.
+// Scale is cosmetic; neither sprite enlargement nor airtime changes hitboxes.
+export function dunkMotion(progress,reach,reduced=false){
+ const t=clamp(progress,0,1),contact=RIM_HEIGHT+3;
+ if(reduced)return {lift:Math.max(12,contact-reach)*Math.sin(Math.min(1,t/.68)*Math.PI/2),scale:1,rotation:0};
+ const scale=1+.42*Math.sin(Math.PI*Math.min(1,t/.82)),apex=RIM_HEIGHT+86;
+ let hand;if(t<.38){const u=t/.38;hand=reach+(apex-reach)*(1-(1-u)**3);}else if(t<.78){const u=(t-.38)/.40;hand=apex+(contact-apex)*u*u*u;}else hand=contact;
+ const wind=t<.78?Math.sin(Math.PI*t/.78):0;
+ return {lift:Math.max(0,hand-reach*scale),scale,rotation:-.20*wind};
+}
+export function dunkLift(progress,reach){return dunkMotion(progress,reach).lift;}

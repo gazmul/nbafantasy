@@ -104,3 +104,9 @@ Roster expansion continuity and recovery are in `docs/ROSTER-PRODUCTION.md` and 
 The court now uses a low sideline perspective in landscape and an end-court perspective in portrait. Glass backboards, elevated rims, nets and shot clocks sit above the floor, with players scaled and layered by court depth. Shots finish at the elevated rim; dunk lift follows each athlete's actual sprite reach. No crowd is drawn. World positions, control directions, match physics, roster selection and the existing network protocol remain authoritative and unchanged.
 
 `node scripts/render-court-qa.mjs` renders portrait/landscape views and left/right dunks with the real canvas modules, also asserting that rendering never mutates match state. This does not replace browser or real-phone QA.
+
+### v0.8.2 · Massive dunks and big-play typography
+
+Dunks now launch much higher with 0.94 seconds of airtime, enlarged athletes, motion trails, a hammer-down finish, rim/net reactions, impact rings and a brief camera punch. DUNK!, STEAL!, BLOCK! and MISS! animate with bold outlined typography and individual colours. Reduced-motion preferences disable shaking, zoom, trails and spinning text.
+
+The authoritative engine emits sequenced play events for both owners. Rebound and fire messages cannot swallow an event; repeated snapshots cannot restart it. A blocked shot does not later announce MISS, and clients cannot inject scores or play events. Physics measurements, roster choices and the Midnight Arena camera remain intact.

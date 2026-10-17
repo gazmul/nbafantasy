@@ -63,3 +63,15 @@ test('three personal makes ignite; an opponent score clears earned fire but pres
 });
 
 test('fire provides real finishing, pace and recovery bonuses rather than only effects',()=>{const setup=hot=>{const t=teams();t[0].players[0].startOnFire=hot;const g=createGame(t,{rng:()=>.78});g.state.phase='playing';g.state.ps[0].x=600;g.state.ps[0].y=265;g.state.ps[2].x=150;g.state.ps[3].x=150;return g;};const cold=setup(false),hot=setup(true);for(const g of [cold,hot]){g.state.ps[0].hold=.74;g.setInput(0,{},['up']);g.step(.01);}assert(!cold.state.ball.shot.made);assert(hot.state.ball.shot.made);const c=setup(false),h=setup(true);for(const g of [c,h]){g.state.ps[0].energy=50;g.setInput(0,{x:1,y:0});g.step(.1);}assert(h.state.ps[0].x>c.state.ps[0].x);assert(h.state.ps[0].energy>c.state.ps[0].energy);});
+
+test('authoritative major plays persist through rebound flashes and checkpoint restoration',()=>{
+ const g=createGame(teams(),{rng:()=>0});g.state.phase='playing';const p=g.state.ps[0],def=g.state.ps[2];def.x=p.x+20;def.y=p.y;g.setInput(1,{},['down']);g.step(.01);assert.equal(g.state.playEvent.kind,'steal');assert.equal(g.state.playEvent.side,1);assert.equal(g.state.playSeq,1);
+ const restored=createGame(teams(),{state:g.snapshot()});assert.deepEqual(restored.state.playEvent,g.state.playEvent);
+ const fail=createGame(teams(),{rng:()=>.999});fail.state.phase='playing';fail.state.ps[2].x=fail.state.ps[0].x+20;fail.state.ps[2].y=fail.state.ps[0].y;fail.setInput(1,{},['down']);fail.step(.01);assert.equal(fail.state.playEvent,null);
+});
+test('blocked attempts emit BLOCK once without a later false MISS; ordinary misses emit MISS',()=>{
+ for(const blocked of [true,false]){const g=createGame(teams(),{rng:()=>0});g.state.phase='playing';const p=g.state.ps[0],d=g.state.ps[2];d.x=p.x+20;d.y=p.y;g.state.ball.owner=-1;g.state.ball.shot={from:{x:p.x,y:p.y},to:{x:815,y:265},t:0,d:.2,made:false,points:2,team:0,dunk:false,shooter:0};if(blocked){g.setInput(1,{},['down']);g.step(.01);assert.equal(g.state.playEvent.kind,'block');}for(let i=0;i<25;i++)g.step(.01);assert.equal(g.state.playEvent.kind,blocked?'block':'miss');assert.equal(g.state.playSeq,1);}
+});
+test('massive dunks retain airtime and emit DUNK even when fire replaces the small flash',()=>{
+ const ts=teams();ts[0].players[0].startOnFire=true;const g=createGame(ts,{rng:()=>0});g.state.phase='playing';g.state.ps[0].x=750;g.state.ps[0].y=265;g.setInput(0,{},['down']);g.step(.01);assert.equal(g.state.ball.shot.d,.94);for(let i=0;i<95;i++)g.step(.01);assert.equal(g.state.scores[0],2);assert.equal(g.state.playEvent.kind,'dunk');assert.equal(g.state.playEvent.fire,true);assert(g.state.flash.includes('ON FIRE'));assert.equal(g.state.playSeq,1);
+});

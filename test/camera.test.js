@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {courtCamera,RIM_HEIGHT,shotPosition,dunkLift} from '../public/camera.js';
+import {courtCamera,RIM_HEIGHT,shotPosition,dunkLift,dunkMotion} from '../public/camera.js';
 import {configureAthletes,athleteReach} from '../public/athletes.js';
 import {FEATURED} from '../public/featured.js';
 const near=(a,b)=>assert(Math.abs(a-b)<1e-8,`${a} differs from ${b}`);
@@ -22,7 +22,9 @@ test('shot arcs start at release height and finish at the elevated rim, with no 
 });
 test('all36 athletes reach rim height during a dunk and every court corner retains headroom',async()=>{
  configureAthletes(JSON.parse(await readFile(new URL('../public/league.json',import.meta.url),'utf8')));
- for(const player of FEATURED){const p={name:player.name},reach=athleteReach(p),lift=dunkLift(.8,reach);assert(lift>0);assert(reach+lift>=RIM_HEIGHT&&reach+lift<RIM_HEIGHT+14,player.name);near(dunkLift(0,reach),0);
+ for(const player of FEATURED){const p={name:player.name},reach=athleteReach(p),lift=dunkLift(.8,reach);assert(lift>0);assert(reach*dunkMotion(.8,reach).scale+lift>=RIM_HEIGHT&&reach*dunkMotion(.8,reach).scale+lift<RIM_HEIGHT+14,player.name);near(dunkLift(0,reach),0);
   for(const portrait of [false,true]){const c=courtCamera(portrait);for(const x of [48,852])for(const y of [69,461]){const head=c.project(x,y,reach+lift),feet=c.project(x,y);assert(head.y>0&&feet.y+35<c.height,`${player.name} needs vertical headroom`);assert(head.x-60>0&&head.x+60<c.width,`${player.name} needs side clearance`);}}
  }
 });
+
+test('giant dunk apex clears both baskets in both orientations and reduced motion stays steady',()=>{for(const portrait of [false,true])for(const x of [85,815])for(const reach of [100,130]){const c=courtCamera(portrait),motion=dunkMotion(.38,reach),hand=reach*motion.scale+motion.lift;assert(motion.scale>1.4);assert(hand>RIM_HEIGHT+80);assert(c.project(x,265,hand).y>20);const calm=dunkMotion(.38,reach,true);assert.equal(calm.scale,1);assert.equal(calm.rotation,0);}});
