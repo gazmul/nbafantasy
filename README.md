@@ -88,3 +88,7 @@ Nine supplied fantasy teams, 117 players. Height/weight and individual source li
 ### v0.6.1 animation fix
 
 Sprite metadata follows complete silhouettes instead of cutting poses at uniform tile edges. Corrected shorter pose sheets and added court side clearance. `npm test` includes decoded-PNG running crop checks. To rebuild metadata from unchanged source PNGs: `python scripts/build-atlas.py` (Pillow, NumPy, SciPy required for this optional art tooling).
+
+### v0.7.0 · Midnight Arena
+
+Midnight Arena is the active visual direction: navy/graphite surfaces, warm maple court, cobalt and ivory kits, and amber fire effects. Shared presentation colours live in `public/themes.js`. Concrete Club, Coastal Heat and Original Arcade remain saved there for future themed games; there is no theme selector yet. Both sprite kits and roster previews use the same pigment conversion while preserving skin/hair colours and source shading. Gameplay, sprite frame bounds, team rosters and room protocol are unchanged.

@@ -1,5 +1,5 @@
 {
-  "version": "0.6.1",
+  "version": "0.7.0",
   "workerdIntegration": {
     "passed": true,
     "checks": [
@@ -86,6 +86,25 @@
       "Shorter Edwards and Flagg pose sheets mapped correctly",
       "Court side padding preserves wide strides",
       "Both facing directions rendered with native canvas"
+    ],
+    "browserQA": "Not run",
+    "realPhoneQA": "Not run"
+  },
+  "midnightArena": {
+    "passed": true,
+    "activeTheme": "Midnight Arena",
+    "savedThemes": [
+      "Concrete Club",
+      "Coastal Heat",
+      "Original Arcade"
+    ],
+    "checks": [
+      "Cobalt and ivory sprite palettes preserve skin colours",
+      "Portrait and landscape courts rendered with native canvas",
+      "Roster portrait canvases share the game renderer",
+      "24 Node tests pass",
+      "Actual workerd two-owner integration passes",
+      "Wrangler deployment dry run passes"
     ],
     "browserQA": "Not run",
     "realPhoneQA": "Not run"

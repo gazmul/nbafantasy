@@ -1,4 +1,5 @@
-import {ATLAS_DATA} from './art-manifest.js?v=061';
+import {THEME,recolourKitPixel} from './themes.js?v=070';
+import {ATLAS_DATA} from './art-manifest.js?v=070';
 // Presentation only. No sprites, poses or cosmetic choices change match physics.
 const profiles=new Map();
 export function configureAthletes(league){for(const t of league.teams)for(const p of t.players)profiles.set(p.name,{height:p.heightCm,weight:p.weightKg});}
@@ -24,7 +25,7 @@ function poly(ctx,points,fill){ctx.fillStyle=fill;ctx.beginPath();points.forEach
 function limb(ctx,a,b,c,width,skin){ctx.lineCap='square';for(const [stroke,w] of [['#241c29',width+2],[skin.dark,width],[skin.skin,width-2]]){ctx.strokeStyle=stroke;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.lineTo(...c);ctx.stroke();}ctx.fillStyle=skin.light;ctx.fillRect(Math.round(b[0])-1,Math.round(b[1])-2,2,4);}
 // Detailed proportionate rig while other athletes await their own art sheets.
 function drawRig(ctx,p,pose,now){
- const skin=skins[p.name]||{skin:'#ab7758',light:'#d19b70',dark:'#744731',hair:'#241e25',beard:false},kit=p.team?'#ed6650':'#22bfd7',shade=p.team?'#9d344d':'#14617e',gold='#ffcf67';
+ const skin=skins[p.name]||{skin:'#ab7758',light:'#d19b70',dark:'#744731',hair:'#241e25',beard:false},kit=p.team?THEME.away:THEME.home,shade=p.team?'#b9b0a3':'#24458e',gold='#cdb58f';
  const running=pose.name==='run',s=running?Math.sin(now/95+p.id):0,shoot=pose.name==='shoot'||pose.name==='release'||pose.name==='dunk',defend=pose.name==='defend';
  const leftK=[-8-s*7,-24+Math.max(0,s)*8],rightK=[8+s*7,-24+Math.max(0,-s)*8],leftFoot=[-10+s*13,0],rightFoot=[12-s*13,0];
  limb(ctx,[-6,-46],leftK,leftFoot,7,skin);limb(ctx,[6,-46],rightK,rightFoot,7,skin);
@@ -43,11 +44,13 @@ const resources=new Map();
 function loadAtlas(name,onLoad){
  if(resources.has(name)){const existing=resources.get(name);resources.delete(name);resources.set(name,existing);return existing;}
  const spec=ATLAS_DATA[name];if(!spec||typeof Image==='undefined')return null;
- const resource={spec,image:null,orange:null,failed:false};resources.set(name,resource);while(resources.size>8)resources.delete(resources.keys().next().value);
+ const resource={spec,image:null,kits:[],failed:false};resources.set(name,resource);while(resources.size>8)resources.delete(resources.keys().next().value);
  const image=new Image();image.onload=()=>{resource.image=image;try{
-  const canvas=document.createElement('canvas');canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;const c=canvas.getContext('2d');c.drawImage(image,0,0);const pixels=c.getImageData(0,0,canvas.width,canvas.height),d=pixels.data;
-  for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2];if(d[i+3]>0&&g>r*1.25&&b>r*1.2&&Math.abs(g-b)<100){const light=Math.max(g,b);d[i]=Math.min(255,light*1.12);d[i+1]=Math.round(light*.44);d[i+2]=Math.round(light*.35);}}
-  c.putImageData(pixels,0,0);resource.orange=canvas;
+  for(const side of [0,1]){
+   const canvas=document.createElement('canvas');canvas.width=image.naturalWidth;canvas.height=image.naturalHeight;const c=canvas.getContext('2d');c.drawImage(image,0,0);const pixels=c.getImageData(0,0,canvas.width,canvas.height),d=pixels.data;
+   for(let i=0;i<d.length;i+=4)if(d[i+3]>0){const colour=recolourKitPixel(d[i],d[i+1],d[i+2],side);d[i]=colour[0];d[i+1]=colour[1];d[i+2]=colour[2];}
+   c.putImageData(pixels,0,0);resource.kits[side]=canvas;
+  }
  }catch{}onLoad();};image.onerror=()=>{resource.failed=true;onLoad();};image.src=spec.src;return resource;
 }
 export function makeAthleteRenderer({onLoad=()=>{}}={}){
@@ -65,7 +68,7 @@ export function makeAthleteRenderer({onLoad=()=>{}}={}){
    const jump=Math.sin(Math.min(1,(p.jump||0)/.65)*Math.PI)*27,bob=pose.name==='run'?-Math.abs(Math.sin((p.distance??now*.16)/96*Math.PI*2))*1.5:pose.name==='idle'?Math.sin(now/350)*.45:0;
    ctx.save();ctx.imageSmoothingEnabled=false;ctx.translate(p.x,p.y-jump+bob);ctx.scale(direction*metrics.build,1);
    if(resource?.image){
-    const image=p.team&&resource.orange?resource.orange:resource.image,scale=metrics.height/resource.spec.bodyPixels;
+    const image=resource.kits[p.team]||resource.image,scale=metrics.height/resource.spec.bodyPixels;
     const paint=index=>{const f=resource.spec.frames[index],[sx,sy,w,h]=f.box,[ax,ay]=f.anchor;ctx.drawImage(image,sx,sy,w,h,(sx-ax)*scale,(sy-ay)*scale,w*scale,h*scale);};
     const mix=Math.min(1,(now-history.at)/75),alpha=ctx.globalAlpha??1;
     if(mix<1&&history.from!==pose.frame){ctx.globalAlpha=alpha*(1-mix);paint(history.from);ctx.globalAlpha=alpha*mix;paint(pose.frame);ctx.globalAlpha=alpha;}else paint(pose.frame);

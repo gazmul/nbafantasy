@@ -1,5 +1,5 @@
-import {FEATURED} from './featured.js?v=061';
-import {configureAthletes,makeAthleteRenderer} from './athletes.js?v=061';
+import {FEATURED} from './featured.js?v=070';
+import {configureAthletes,makeAthleteRenderer} from './athletes.js?v=070';
 const $=id=>document.getElementById(id),canvas=$('labCanvas'),ctx=canvas.getContext('2d');
 const league=await fetch('/league.json').then(r=>r.json());configureAthletes(league);const players=league.teams.flatMap(t=>t.players),renderer=makeAthleteRenderer();
 $('athlete').innerHTML=FEATURED.map(p=>`<option value="${p.name}">${p.name} · ${p.teamName}</option>`).join('');$('athlete').value='Anthony Edwards';

@@ -1,7 +1,8 @@
-import {createGame,clamp,emptyInput} from './engine.js?v=061';
-import {FEATURED,DEMO_LEADERS,ROLE_LABELS} from './featured.js?v=061';
-import {configureAthletes} from './athletes.js?v=061';
-import {makeCourt} from './court.js?v=061';
+import {sideLabel} from './themes.js?v=070';
+import {createGame,clamp,emptyInput} from './engine.js?v=070';
+import {FEATURED,DEMO_LEADERS,ROLE_LABELS} from './featured.js?v=070';
+import {configureAthletes,makeAthleteRenderer} from './athletes.js?v=070';
+import {makeCourt} from './court.js?v=070';
 
 const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const league=await fetch('/league.json').then(r=>{if(!r.ok)throw Error('The league roster could not load. Reload this page.');return r.json();});
@@ -23,7 +24,15 @@ function hideResult(){$('resultModal').hidden=true;}
 function team(id){return league.teams.find(t=>t.id===id);}
 function saveSession(){try{localStorage.setItem(storeKey,JSON.stringify(session));}catch(e){toast('Keep this tab open. This browser cannot remember your saved duel.');}}
 function forget(){try{localStorage.removeItem(storeKey);}catch(e){}session=null;$('savedSession').hidden=true;}
-function portrait(side,i,id){return `<span class="portrait sprite-portrait" style="background-image:url('/art/player-${id}-v2.png')" aria-hidden="true"></span>`;}
+const rosterArt=makeAthleteRenderer({onLoad:drawRosterPortraits});
+function portrait(side,i,id){const player=FEATURED.find(p=>p.id===id);return `<canvas width="128" height="128" class="portrait sprite-portrait" data-athlete="${esc(player.name)}" data-side="${side}" aria-hidden="true"></canvas>`;}
+function drawRosterPortraits(){
+ for(const canvas of $('roster')?.querySelectorAll?.('canvas[data-athlete]')||[]){
+  const name=canvas.dataset.athlete,p={name,id:0,team:Number(canvas.dataset.side),x:0,y:0,vx:0,vy:0,jump:0,hold:0};
+  const ctx=canvas.getContext('2d');ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,128,128);ctx.save();ctx.translate(64,122);ctx.scale(1.05,1.05);rosterArt.draw(ctx,p,{ps:[p],phase:'playing',ball:{owner:-1}},1000,{facingX:1,forcePose:{name:'idle',frame:0}});ctx.restore();
+ }
+}
+
 const options=league.teams.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('');
 for(const id of ['teamInput','practiceHome','practiceAway'])$(id).innerHTML=options;
 $('teamInput').value=$('practiceHome').value='team-3';$('practiceAway').value='team-1';
@@ -57,13 +66,13 @@ function connect(){clearTimeout(retryTimer);manualLeave=false;const current=ws;i
 }
 function renderRoom(){if(!room||!session)return;const me=room.owners[session.side];if(!me)return;ready=me.ready;if(ready&&me.selected.length)selected=[...me.selected];for(const id of ['eligibleConfirm','finalScore','finalConfirm'])$(id).disabled=ready;
  $('roomConnection').textContent=ws?.readyState===WebSocket.OPEN?'CONNECTED':'CONNECTING';$('roomTitle').textContent=room.owners[1]?'Your live matchup':'Send your match link';$('roomMode').textContent=room.mode==='test'?'GAMEPLAY TEST · NEUTRAL WEEKLY ABILITIES':'FINAL-WEEK DUEL · '+room.weekEnding;
- $('owners').innerHTML=room.owners.map((o,s)=>`<div class="owner-tile ${s?'orange':''}"><small>${s?'ORANGE':'BLUE'} ${s===session.side?'· YOU':''}</small><strong>${o?esc(o.name):'Waiting for your rival'}</strong><small>${o?esc(team(o.teamId).name):'Open the invitation link to join this court'}</small><br><b>${o?(o.ready?'READY':o.online?'ONLINE · SELECTING':'OFFLINE'):'ONE PLACE OPEN'}</b>${o?.team?`<p class="note" style="margin:9px 0 0">${o.team.players.filter(p=>p.selected).map(p=>esc(p.name)).join(' + ')}${room.mode==='week'?`<br>${o.team.score} FP`:''}</p>`:''}</div>`).join('');
+ $('owners').innerHTML=room.owners.map((o,s)=>`<div class="owner-tile ${s?'orange':''}"><small>${sideLabel(s)} ${s===session.side?'· YOU':''}</small><strong>${o?esc(o.name):'Waiting for your rival'}</strong><small>${o?esc(team(o.teamId).name):'Open the invitation link to join this court'}</small><br><b>${o?(o.ready?'READY':o.online?'ONLINE · SELECTING':'OFFLINE'):'ONE PLACE OPEN'}</b>${o?.team?`<p class="note" style="margin:9px 0 0">${o.team.players.filter(p=>p.selected).map(p=>esc(p.name)).join(' + ')}${room.mode==='week'?`<br>${o.team.score} FP`:''}</p>`:''}</div>`).join('');
  $('inviteLink').value=location.origin+'/?duel='+room.code;$('invitePanel').hidden=!!room.owners[1];$('eligibilityLabel').hidden=room.mode==='test';
  $('roomFire').textContent=(room.leadersSource==='demo'?'DEMO FIRE STARS · ':'WEEKLY FIRE STARS · ')+Object.entries(room.leaders||{}).filter(([,id])=>id).map(([role,id])=>ROLE_LABELS[role]+': '+(FEATURED.find(p=>p.id===id)?.name||'')).join(' · ');
  $('roomNotice').textContent=room.mode==='test'?'NEUTRAL ARCADE · No weekly stats needed. Two players are preselected; change them if you like, then press Ready. Injury eligibility is not checked in this test mode.':'Enter final weekly totals for your two selected players and your final team score. Each owner confirms their figures; both start from 0–0.';
  $('weekEntries').hidden=room.mode!=='week';$('readyBtn').hidden=ready;$('unreadyBtn').hidden=!ready;$('readyState').textContent=ready?'Your lineup is locked. Waiting for both owners to be online and ready.':'';renderRoster();renderStatEntries();
 }
-function renderRoster(){if(!room)return;const me=room.owners[session.side],source=team(me.teamId);$('selectionCount').textContent=selected.length+' / 2';$('roster').innerHTML=source.players.map((p,i)=>`<button type="button" class="player-card ${selected.includes(p.id)?'chosen':''}" data-player="${p.id}" aria-pressed="${selected.includes(p.id)}" ${ready?'disabled':''}><span class="badge">${selected.includes(p.id)?'✓':'+'}</span>${portrait(session.side,i,p.id)}<strong>${esc(p.name)}</strong><small>${esc(p.heightDisplay)} · ${p.heightCm.toFixed(2)} cm<br>${p.weightLb} lb · ${p.weightKg.toFixed(1)} kg<br>${room.mode==='test'?'Neutral arcade abilities':'Eligibility to confirm'}${Object.values(room.leaders||{}).includes(p.id)?'<br><b class="flame-text">STARTS ON FIRE</b>':''}</small></button>`).join('');}
+function renderRoster(){if(!room)return;const me=room.owners[session.side],source=team(me.teamId);$('selectionCount').textContent=selected.length+' / 2';$('roster').innerHTML=source.players.map((p,i)=>`<button type="button" class="player-card ${selected.includes(p.id)?'chosen':''}" data-player="${p.id}" aria-pressed="${selected.includes(p.id)}" ${ready?'disabled':''}><span class="badge">${selected.includes(p.id)?'✓':'+'}</span>${portrait(session.side,i,p.id)}<strong>${esc(p.name)}</strong><small>${esc(p.heightDisplay)} · ${p.heightCm.toFixed(2)} cm<br>${p.weightLb} lb · ${p.weightKg.toFixed(1)} kg<br>${room.mode==='test'?'Neutral arcade abilities':'Eligibility to confirm'}${Object.values(room.leaders||{}).includes(p.id)?'<br><b class="flame-text">STARTS ON FIRE</b>':''}</small></button>`).join('');drawRosterPortraits();}
 $('roster').onclick=e=>{const b=e.target.closest('[data-player]');if(!b||ready)return;cacheStats();const id=b.dataset.player;if(selected.includes(id))selected=selected.filter(x=>x!==id);else if(selected.length<2)selected.push(id);else return toast('Deselect one player first. Your lineup has two places.');$('eligibleConfirm').checked=false;renderRoster();renderStatEntries();};
 const statLabels=[['gp','Games played'],['pts','Points'],['reb','Rebounds'],['ast','Assists'],['three','Threes made'],['stl','Steals'],['blk','Blocks']];
 function cacheStats(){for(const p of selected){const row={};for(const [key] of statLabels){const el=$(`stat-${p}-${key}`);if(el)row[key]=el.value;}if(Object.keys(row).length)statDraft[p]=row;}}
@@ -78,7 +87,7 @@ function neutralTeam(t,ids){return {name:t.name,score:0,confirmed:true,players:t
 function practicePlayers(){const t=team($('practiceHome').value),opts=t.players.map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(p.heightDisplay)} · ${p.weightLb} lb</option>`).join('');$('practicePlayer1').innerHTML=$('practicePlayer2').innerHTML=opts;$('practicePlayer2').selectedIndex=1;}
 $('practiceHome').onchange=practicePlayers;practicePlayers();
 $('practiceBtn').onclick=()=>{if($('practiceHome').value===$('practiceAway').value)return toast('Choose two different fantasy teams.');const picks=[$('practicePlayer1').value,$('practicePlayer2').value];if(picks[0]===picks[1])return toast('Select two different players.');const h=team($('practiceHome').value),a=team($('practiceAway').value);practiceTeams=[neutralTeam(h,picks),neutralTeam(a,a.players.slice(0,2).map(p=>p.id))];practice=createGame(practiceTeams,{practice:true});snapshot=practice.state;pausedReason='';showGame();};
-function showGame(){gameVisible=true;acc=0;localExit=false;lastDraw=null;lastSnapshotAt=performance.now();hideResult();$('lobby').hidden=true;$('game').hidden=false;$('homeName').textContent=practice?practiceTeams[0].name:team(room.owners[0].teamId).name;$('awayName').textContent=practice?practiceTeams[1].name:team(room.owners[1].teamId).name;$('gameTip').textContent=practice?'Arrows / WASD: move · Space: shoot / tap near rim to dunk · E: pass · Shift: boost':'Both owners must keep the browser visible. Your side: '+(session.side?'ORANGE':'BLUE')+'.';resetInputs();court.resize();}
+function showGame(){gameVisible=true;acc=0;localExit=false;lastDraw=null;lastSnapshotAt=performance.now();hideResult();$('lobby').hidden=true;$('game').hidden=false;$('homeName').textContent=practice?practiceTeams[0].name:team(room.owners[0].teamId).name;$('awayName').textContent=practice?practiceTeams[1].name:team(room.owners[1].teamId).name;$('gameTip').textContent=practice?'Arrows / WASD: move · Space: shoot / tap near rim to dunk · E: pass · Shift: boost':'Both owners must keep the browser visible. Your side: '+(sideLabel(session.side))+'.';resetInputs();court.resize();}
 function goLobby(){gameVisible=false;practice=null;snapshot=null;localExit=false;pausedReason='';resetInputs();hideResult();$('exitModal').hidden=true;$('game').hidden=true;$('lobby').hidden=false;if(room)renderRoom();}
 function displayResult(m){if(!$('resultModal').hidden)return;const s=ownerSide(),winner=m.scores[0]>m.scores[1]?0:1,st=m.stats[s],names=practice?practiceTeams.map(t=>t.name):room.owners.map(o=>team(o.teamId).name);$('resultMode').textContent=practice?'WARM-UP COMPLETE':room.mode==='week'?'FINAL-WEEK DUEL COMPLETE':'LIVE GAMEPLAY TEST COMPLETE';$('resultTitle').textContent=winner===s?'The week is yours.':'Rival takes the duel.';$('resultScore').textContent=m.scores.join('–');$('resultDetail').textContent=`${names[winner]} wins. Your side: ${st.made}/${st.attempts} shots, ${st.threes} threes, ${st.dunks} dunks, ${st.steals} steals.`;$('resultNote').textContent=practice?'Practice against AI. Neutral weekly abilities.':room.mode==='test'?'Gameplay test only. Neutral weekly abilities. No ESPN result changed.':'Record this result in your league by agreement. No ESPN result changed.';$('rematchBtn').hidden=!practice;$('resultModal').hidden=false;}
 $('rematchBtn').onclick=()=>{practice=createGame(practiceTeams,{practice:true});snapshot=practice.state;pausedReason='';showGame();};$('backBtn').onclick=()=>{if(practice)goLobby();else leaveRoom();};
@@ -101,7 +110,7 @@ let previous=performance.now(),acc=0,lastScores='0,0';function frame(now){reques
  if(now-lastSent>=33){lastSent=now;sendInput();}
  if(now-lastMessageAt>4500)pausedReason='Waiting for the room connection…';
  }
- const label=practice?'WARM-UP · VS AI':`${session.side?'ORANGE':'BLUE'} · ${latency}ms`;$('connection').textContent=label;
+ const label=practice?'WARM-UP · VS AI':`${sideLabel(session.side)} · ${latency}ms`;$('connection').textContent=label;
  // Ease player positions between authoritative snapshots; never infer scores.
  let render=snapshot;if(!practice){render=JSON.parse(JSON.stringify(snapshot));if(lastDraw){const alpha=1-Math.exp(-delta*25);for(let i=0;i<4;i++){render.ps[i].x=lastDraw.ps[i].x+(snapshot.ps[i].x-lastDraw.ps[i].x)*alpha;render.ps[i].y=lastDraw.ps[i].y+(snapshot.ps[i].y-lastDraw.ps[i].y)*alpha;}}lastDraw=render;}
  court.draw(render);const scoreKey=snapshot.scores.join(',');if(scoreKey!==lastScores){lastScores=scoreKey;beep();}
